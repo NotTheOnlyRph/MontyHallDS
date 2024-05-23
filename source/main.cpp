@@ -1,233 +1,137 @@
-/*
--------------------------------------------------
-
-	NightFox's Lib Template
-	Ejemplo de 3D Sprites
-
-	Requiere DevkitARM
-	Requiere NightFox's Lib
-
-	Codigo por NightFox
-	http://www.nightfoxandco.com
-	Inicio 10 de Octubre del 2009
-
-	(c)2009 - 2011 NightFox & Co.
-
--------------------------------------------------
-*/
-
-/*
--------------------------------------------------
-	Includes
--------------------------------------------------
-*/
-
-// Includes C++
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <time.h>
-
-// Includes LibNDS
 #include <nds.h>
-#include <nds/touch.h>
-#include <nds/input.h>
+#include <nf_lib.h>
 #include <fat.h>
 
-// Includes NFlib
-#include <nf_lib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define MAXSPRITES 32
+int arrowposx = 32;
+int	arrowposy = 48;
+int	option = 1;
+int game = 0;
 
-int wait;
+
+void Titlescreen(){
+	
+	NF_MoveSprite(1, 5, arrowposx, arrowposy);
+	
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+			
+	if (arrowposx == 20) {
+			arrowposx = 32;
+	}
+	else {
+			arrowposx -= 0.5;
+	}
+		
+	NF_MoveSprite(1, 5, arrowposx, arrowposy);
+		
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);	
+
+	for (int wait=0; wait<=120; wait++) {
+		scanKeys();
+				
+		if (KEY_UP & keysDown() || KEY_DOWN & keysDown()) {
+			
+			if (option == 1) {
+				option = 2;
+				arrowposy = 112;
+				NF_MoveSprite(1, 5, arrowposx, arrowposy);
+				break;
+			}
+			if (option == 2) {
+				option = 1;
+				arrowposy = 48;
+				NF_MoveSprite(1, 5, arrowposx, arrowposy);
+			}
+		}
+		if (KEY_A & keysDown()) {
+			game = 1;
+		}
+	}
+}
 
 
-/*
--------------------------------------------------
-	void() - Blocs de définition
--------------------------------------------------
-*/
-
-void Update()
+int main()
 {
+    srand (time(NULL));
+    consoleDemoInit();	
+	consoleClear();
+	iprintf("\n The Monty Hall Problem\n DS port by Rph\n\n Please wait for NitroFS to init\n\n\n (If it takes too much time,\n it probably doesn't work. See\n [PLACEHOLDER URL]\n for information.)");
+	swiWaitForVBlank();		
+	soundEnable();
+	NF_Set2D(0,0);
+    NF_Set2D(1,0);
+	NF_SetRootFolder("NITROFS");
+    
+    NF_InitTiledBgBuffers();
+	NF_InitTiledBgSys(0);
+    NF_InitTiledBgSys(1);
+	
+    NF_InitSpriteBuffers();
+	NF_InitSpriteSys(0);
+	NF_InitSpriteSys(1);
+	
+    NF_InitRawSoundBuffers();
+    
+	NF_LoadTiledBg("bg/Top1", "Top1", 256, 256);
+    NF_LoadTiledBg("bg/Bottom1", "Bottom1", 256, 256);
+    NF_LoadTiledBg("bg/Bottom2", "Bottom2", 256, 256);
+    
+	NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 32, 16);
+	NF_LoadSpritePal("sprites/Arrowbeta", 5);
+	NF_VramSpriteGfx(1, 5, 5, false);
+	NF_VramSpritePal(1, 5, 5);
+	   
+    while (1)   
+    {	
+		NF_CreateTiledBg(0, 3, "Top1");
+		NF_CreateTiledBg(1, 3, "Bottom1");
+		NF_CreateSprite(1, 5, 5, 5, 64, 32);
+		
+		while(1)
+		{
+			Titlescreen();
+			
+			if (game == 1)
+			{
+				break;
+			}
+		}
+		
+		NF_DeleteSprite(1, 5);
+
+		NF_DeleteTiledBg(1, 3);
+		NF_CreateTiledBg(1, 3, "Bottom2");
+
 		NF_SpriteOamSet(0);
 		NF_SpriteOamSet(1);
 		swiWaitForVBlank();
 		oamUpdate(&oamMain);
 		oamUpdate(&oamSub);
-}
-
-void MontyHall (int option) {
-	
-	if (option == 1) {
 		
-	}
-	
-}
-
-void PlayMontyHall ()
-{
-  // Determine door where the car is	
-  int CarDoor = rand () % 3 + 1;
-  // default initialization of chosen door
-  int ChosenDoor = 0;
-  // default initialization of strategy
-  char Change = 'u';
-  
-  while (ChosenDoor != 1 && ChosenDoor != 2 && ChosenDoor != 3)
-	{
-	  //std::cout << "Door (Between 1 and 3): ";
-	  //std::cin >> ChosenDoor;
-	}
-
-  // find a door different from the chosen one and not containing the car
-  // at most 2 possibilites, maybe only one
-  // choose a door at random and increment until appropriate door is found
-  int WrongDoor = rand() % 3 + 1;
-  while (WrongDoor == ChosenDoor | WrongDoor == CarDoor)
-	{
-	  WrongDoor = WrongDoor % 3 + 1;
-	}
-
-  //std::cout << "The door number " << WrongDoor << " doesn't contain the car. Do you want to change? [Y/N]: ";
-  //std::cin >> Change;
-  //cout << endl;
-
-  // tirer au hasard parmi les portes restantes
-  // implementation : tant qu'on n'a pas choisi une porte différente de WrongDoor et ChosenDoor, on continue
-  int ChangeChosenDoor = ChosenDoor;
-  
-  if (Change == 'Y')
-	{
-	  do {
-		  ChangeChosenDoor == rand () % 3 + 1;
-	  } while ((ChangeChosenDoor == WrongDoor) | (ChangeChosenDoor == ChosenDoor));
-	}
-
-	ChosenDoor == ChangeChosenDoor;
-
-  if (CarDoor == ChosenDoor) {
-	//std::cout << "You won" << std::endl;
-	}
-  else
-  {
-	//std::cout << "You lost" << std::endl;
-	}
-}
-
-
-/*
--------------------------------------------------
-	Main() - Bloque general del programa
--------------------------------------------------
-*/
-
-int main(int argc, char **argv) {
-
-	float arrowposx;
-	int arrowposy;
-	int option;
-	int start = 0;
-
-	// Inicializa el random
-	srand(time(NULL));
-
-	// Pantalla de espera inicializando NitroFS
-	NF_Set2D(0, 0);
-	NF_Set2D(1, 0);	
-	consoleDemoInit();
-	iprintf("\n The Monty Hall Problem\n DS port by Rph\n\n Please wait for NitroFS to init\n\n\n (If it takes too much time,\n it probably doesn't work. See\n [PLACEHOLDER URL]\n for information.)");
-	swiWaitForVBlank();
-
-	// Define el ROOT e inicializa el sistema de archivos
-	NF_SetRootFolder("NITROFS");	// Define la carpeta ROOT para usar NITROFS
-
-	// Inicializa el motor 2D
-	NF_Set2D(0, 0);
-	NF_Set2D(1, 0);				// Modo 2D_0 en la pantalla inferior
-
-	// Inicializa los fondos tileados
-	NF_InitTiledBgBuffers();	// Inicializa los buffers para almacenar fondos
-	NF_InitTiledBgSys(0);		// Inicializa los fondos Tileados para la pantalla superior
-	NF_InitTiledBgSys(1);		// Inicializa los fondos Tileados para la pantalla inferior
-
-    NF_InitSpriteBuffers();
-	NF_InitSpriteSys(0);
-	NF_InitSpriteSys(1);
-
-	touchPosition touch;
-	soundEnable();
-
-       while(1) {
-		   
-		touchRead(&touch);
-		
-		//Titlescreen
-		
-		NF_LoadTiledBg("bg/Top1", "Top1", 256, 256);
-		NF_CreateTiledBg(0, 3, "Top1");
-
-		NF_LoadTiledBg("bg/Bottom1", "Bottom1", 256, 256);
-		NF_CreateTiledBg(1, 3, "Bottom1");
-
-		NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 32, 16);
-		NF_LoadSpritePal("sprites/Arrowbeta", 5);
-		NF_VramSpriteGfx(1, 5, 5, false);
-		NF_VramSpritePal(1, 5, 5);
-		NF_CreateSprite(1, 5, 5, 5, 32, 64);
-		
-		arrowposx = 32;
-		arrowposy = 48;
-		option = 1;
-		
-		while(1) {
-			
-								
-			if (arrowposx == 20) {
-				arrowposx = 32;
-			}
-			else {
-				arrowposx -= 0.5;
-			}
-			
-			NF_MoveSprite(1, 5, arrowposx, arrowposy);
-			
-			Update();
-			
-			for (wait=0; wait<=60; wait++) {
-				
-				scanKeys();
-					
-				if (KEY_UP & keysDown() || KEY_DOWN & keysDown()) {
-				
-					if (option == 1) {
-						option = 2;
-						arrowposy = 112;
-						NF_MoveSprite(1, 5, arrowposx, arrowposy);
-						break;
-					}
-					if (option == 2) {
-						option = 1;
-						arrowposy = 48;
-						NF_MoveSprite(1, 5, arrowposx, arrowposy);
-					}
-				}
-				
-				if (KEY_A & keysDown()) {
-					start = 1;
-				}
-			}
-			
-			if (start == 1) {
-				start = 0;
-				NF_ResetSpriteBuffers;
-				Update();
-				MontyHall(option);
-				break;
-			}
-		}
+		for (int wait=0; wait<=60; wait++) {
+			swiWaitForVBlank();
 		}
 		
-	return 0; 
-
+		if (option == 1) {
+			
+		}
+		else {
+			
+		}
+		
+		game = 0;
+		
+    }
+    return 0;
 }
