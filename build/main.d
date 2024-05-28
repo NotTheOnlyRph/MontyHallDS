@@ -60,9 +60,6 @@ main.o: \
  /opt/devkitpro/libnds/include/nds/arm9/video.h \
  /opt/devkitpro/libnds/include/nds/arm9/videoGL.h \
  /opt/devkitpro/libnds/include/nds/arm9/nand.h \
- /opt/devkitpro/libnds/include/fat.h \
- /opt/devkitpro/libnds/include/libfatversion.h \
- /opt/devkitpro/libnds/include/nds/disc_io.h \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_lib.h \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_defines.h \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_basic.h \
@@ -78,7 +75,10 @@ main.o: \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sound.h \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_media.h \
  /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_3d.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite3d.h
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite3d.h \
+ /opt/devkitpro/libnds/include/fat.h \
+ /opt/devkitpro/libnds/include/libfatversion.h \
+ /opt/devkitpro/libnds/include/nds/disc_io.h
 /opt/devkitpro/libnds/include/nds.h:
 /opt/devkitpro/libnds/include/nds/libversion.h:
 /opt/devkitpro/libnds/include/nds/ndstypes.h:
@@ -139,9 +139,6 @@ main.o: \
 /opt/devkitpro/libnds/include/nds/arm9/video.h:
 /opt/devkitpro/libnds/include/nds/arm9/videoGL.h:
 /opt/devkitpro/libnds/include/nds/arm9/nand.h:
-/opt/devkitpro/libnds/include/fat.h:
-/opt/devkitpro/libnds/include/libfatversion.h:
-/opt/devkitpro/libnds/include/nds/disc_io.h:
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_lib.h:
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_defines.h:
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_basic.h:
@@ -158,3 +155,6 @@ main.o: \
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_media.h:
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_3d.h:
 /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite3d.h:
+/opt/devkitpro/libnds/include/fat.h:
+/opt/devkitpro/libnds/include/libfatversion.h:
+/opt/devkitpro/libnds/include/nds/disc_io.h:
