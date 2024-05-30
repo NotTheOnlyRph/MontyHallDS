@@ -10,7 +10,11 @@ int arrowposx = 15;
 int	arrowposy = 48;
 int	option = 1;
 int game = 0;
-
+int CarDoor;
+int ChosenDoor;
+int ChosenDoorCopy;
+int Change;
+int WrongDoor;
 
 void Titlescreen(){
 
@@ -60,12 +64,14 @@ void Titlescreen(){
 	}
 }
 
-void PlayMontyHall() {
-		
-	NF_DeleteTiledBg(1, 3);
-	NF_UnloadTiledBg("Bottom2");
+void MontyHallInit(){
+	
+
 	NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
+	NF_DeleteTiledBg(1, 3);
 	NF_CreateTiledBg(1, 3, "Bottom3");
+	NF_UnloadTiledBg("Bottom2");
+
 
 	NF_CreateSprite(1, 10, 10, 10, 16, 48);
 	NF_CreateSprite(1, 11, 11, 11, 16, 112);
@@ -82,12 +88,92 @@ void PlayMontyHall() {
 
 		for (int wait=0; wait<=60; wait++) {
 			swiWaitForVBlank();
-		}	
+		}
 
-	NF_DeleteTiledBg(0, 3);
-	NF_UnloadTiledBg("Top1_alt");
+}
+
+void ChooseDoor(){
+
+	NF_MoveSprite(1, 6, arrowposx, arrowposy);
+
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+
+	if (arrowposy == 5) {
+		arrowposy = 15;
+	}
+	else {
+		arrowposy -= 0.5;
+	}
+
+	NF_MoveSprite(1, 6, arrowposx, arrowposy);
+
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+
+	for (int wait=0; wait<=120; wait++) {
+		scanKeys();
+
+		if (KEY_RIGHT & keysDown()) {
+			option = option % 3 + 1;
+		}
+		if (KEY_LEFT & keysDown()) {
+			option -= 1;
+		}
+
+		if (option == 1) {
+			arrowposx = 40;
+		}
+		if (option == 2) {
+			arrowposx = 120;
+		}
+		if ((option == 3) || (option == 0)) {
+			option = 3;
+			arrowposx = 200;
+		}
+
+		if (KEY_A & keysDown()) {
+			game = 1;
+		}
+	}
+
+}
+
+void PlayMontyHall(){
+
+	MontyHallInit();
+
 	NF_LoadTiledBg("bg/Top2", "Top2", 256, 256);
-	NF_CreateTiledBg(0, 3, "Top2");	
+	NF_DeleteTiledBg(0, 3);
+	NF_CreateTiledBg(0, 3, "Top2");
+	NF_UnloadTiledBg("Top1_alt");
+	
+	NF_CreateSprite(1, 6, 6, 6, 120, 15);
+
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+	
+	arrowposx = 120;
+	arrowposy = 15;
+	option = 2;
+	game = 0;
+
+	while (game == 0) {
+		ChooseDoor();
+	}
+	
+	ChosenDoor = option;
+	
+	NF_DeleteSprite(1, 6);
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -95,12 +181,30 @@ void PlayMontyHall() {
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-		while (1) {
-			swiWaitForVBlank();
-		}	
+	do {
+		WrongDoor = rand() % 3 + 1;
+	} while ((WrongDoor == ChosenDoor) || (WrongDoor == CarDoor));
+
+	for (int wait=0; wait<=60; wait++) {
+		swiWaitForVBlank();
+	}
+
+	option = WrongDoor * 2 + 8;
+	NF_DeleteSprite(1, option);
+	option += 1;
+	NF_DeleteSprite(1, option);
+	
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+
+	while (1) {
+		swiWaitForVBlank();
+	}
 
 }
-
 
 int main()
 {
@@ -122,7 +226,7 @@ int main()
     NF_InitSpriteBuffers();
 	NF_InitSpriteSys(0);
 	NF_InitSpriteSys(1);
-	
+
     NF_InitRawSoundBuffers();
         
 	NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 64, 32);
@@ -130,6 +234,11 @@ int main()
 	NF_VramSpriteGfx(1, 5, 5, false);
 	NF_VramSpritePal(1, 5, 5);
 	
+	NF_LoadSpriteGfx("sprites/Arrowbeta_vertical", 6, 16, 32);
+	NF_LoadSpritePal("sprites/Arrowbeta_vertical", 6);
+	NF_VramSpriteGfx(1, 6, 6, false);
+	NF_VramSpritePal(1, 6, 6);
+
 	NF_LoadSpriteGfx("sprites/Door1Top", 10, 64, 64);
 	NF_LoadSpritePal("sprites/Door1Top", 10);
 	NF_VramSpriteGfx(1, 10, 10, false);
@@ -166,16 +275,12 @@ int main()
 		NF_LoadTiledBg("bg/Bottom1", "Bottom1", 256, 256);
 		NF_CreateTiledBg(0, 3, "Top1");
 		NF_CreateTiledBg(1, 3, "Bottom1");
+		
 		NF_CreateSprite(1, 5, 5, 5, 15, 32);
 
-		while(1)
+		while(game == 0)
 		{
 			Titlescreen();
-
-			if (game == 1)
-			{
-				break;
-			}
 		}
 
 		NF_DeleteSprite(1, 5);
