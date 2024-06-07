@@ -1,6 +1,6 @@
 Welcome to the Monty Hall Problem for Nintendo DS!
 
-It's a programe I made alone, in one month. If you want to play it or to see / edit the code (I don't see why you could have downloaded it else, but anyways...), see the sectiond below.
+It's a program I made alone, in one month. If you want to play it or to see / edit the code (I don't see why you could have downloaded it else, but anyways...), see the sectiond below.
 
 PLAY
 
