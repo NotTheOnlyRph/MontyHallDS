@@ -1,5 +1,5 @@
 main.o: \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/source/main.cpp \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/source/main.cpp \
  /opt/devkitpro/libnds/include/nds.h \
  /opt/devkitpro/libnds/include/nds/libversion.h \
  /opt/devkitpro/libnds/include/nds/ndstypes.h \
@@ -60,22 +60,22 @@ main.o: \
  /opt/devkitpro/libnds/include/nds/arm9/video.h \
  /opt/devkitpro/libnds/include/nds/arm9/videoGL.h \
  /opt/devkitpro/libnds/include/nds/arm9/nand.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_lib.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_defines.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_basic.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_2d.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_tiledbg.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_affinebg.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_bitmapbg.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_mixedbg.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite256.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_text.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_text16.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_colision.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sound.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_media.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_3d.h \
- /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite3d.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_lib.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_defines.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_basic.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_2d.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_tiledbg.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_affinebg.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_bitmapbg.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_mixedbg.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sprite256.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_text.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_text16.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_colision.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sound.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_media.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_3d.h \
+ /home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sprite3d.h \
  /opt/devkitpro/libnds/include/fat.h \
  /opt/devkitpro/libnds/include/libfatversion.h \
  /opt/devkitpro/libnds/include/nds/disc_io.h
@@ -139,22 +139,22 @@ main.o: \
 /opt/devkitpro/libnds/include/nds/arm9/video.h:
 /opt/devkitpro/libnds/include/nds/arm9/videoGL.h:
 /opt/devkitpro/libnds/include/nds/arm9/nand.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_lib.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_defines.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_basic.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_2d.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_tiledbg.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_affinebg.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_bitmapbg.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_mixedbg.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite256.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_text.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_text16.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_colision.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sound.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_media.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_3d.h:
-/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/try8/nflib/include/nf_sprite3d.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_lib.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_defines.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_basic.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_2d.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_tiledbg.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_affinebg.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_bitmapbg.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_mixedbg.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sprite256.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_text.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_text16.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_colision.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sound.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_media.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_3d.h:
+/home/rph/Bureau/Documents/Travail/3e/Oral/Programme/MontyHallDS/nflib/include/nf_sprite3d.h:
 /opt/devkitpro/libnds/include/fat.h:
 /opt/devkitpro/libnds/include/libfatversion.h:
 /opt/devkitpro/libnds/include/nds/disc_io.h:

@@ -22,8 +22,8 @@ include $(DEVKITARM)/base_rules
 
 LIBNDS	:=	$(DEVKITPRO)/libnds
 
-GAME_TITLE	    :=	Montyhallbeta
-GAME_SUBTITLE1	:=	Rph
+GAME_TITLE	    :=	The Monty Hall Problem for Nintendo DS
+GAME_SUBTITLE1	:=	Rph / v0.1
 GAME_ICON		:=	$(CURDIR)/../icon.bmp
 
 _ADDFILES	:=	-d $(NITRO_FILES)
