@@ -4,45 +4,53 @@
 -------------------------------------------------
 */
 
-#include <nds.h>
-#include <nf_lib.h>
+#include <nds.h> //Libnds
+#include <nf_lib.h> //NFLib
 #include <fat.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-int arrowposx = 15;
-int arrowposy = 48;
-int option = 1;
-int game = 0;
-int CarDoor;
-int ChosenDoor;
-int ChosenDoorCopy;
-int WrongDoor;
-int ChangeStrategy;
-int StayStrategy;
-int StayWins;
-int StayLoses;
-int ChangeWins;
-int ChangeLoses;
-int strategy;
+int arrowposx;	//Defines position for arrow (on menus) 
+int arrowposy;	//Same
+int option;	//Used in many ways, like choosed option or sprite number calculator
+int game;	//Determines if exiting of the selecting loop (ex: titlescreen)
+
+int CarDoor;	//Door where the car is
+int ChosenDoor;	//Door chosen by the player/computer
+int ChosenDoorCopy;	//Duplicate of ChosenDoor (for the changing part of the program)
+int WrongDoor;	//Door with the goat opened when you choose a door
+
+int ChangeStrategy;		//Equal to 1000, number of times you simulate a game where you change
+int StayStrategy;	//Equal to 1000, number of times you simulate a game where you stay on your choice
+
+int StayWins;	//Speaks by itself
+int StayLoses;	//Same
+int ChangeWins;	//I should put something random here instead of saying it speaks by itself too
+int ChangeLoses;	//How are you?
+
+int strategy;	//Change or stay on choice
 
 /*
 -------------------------------------------------
 
 	LoadSprite() Function
 
+	Loads all the graphics and palettes for sprites to RAM and VRAM.
+
+	Used by: main()
+
 -------------------------------------------------
 */
 
 void LoadSprites() {
 	
-	NF_LoadSpritePal("sprites/Numbers", 2);
+	NF_LoadSpritePal("sprites/Numbers", 2); //Numbers is the common palette for the numbers's graphics
 	NF_VramSpritePal(0, 2, 2);
 	
-	NF_LoadSpriteGfx("sprites/0", 20, 16, 16);
-	NF_VramSpriteGfx(0, 20, 20, false);
+	NF_LoadSpriteGfx("sprites/0", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_VramSpriteGfx(0, 20, 20, false); //Actually I could have just VRAMd them on slot 1 instead of 21. But I wanted at first to load them also on the bottom screen.
 	
 	NF_LoadSpriteGfx("sprites/1", 21, 16, 16);
 	NF_VramSpriteGfx(0, 21, 21, false);
@@ -70,43 +78,43 @@ void LoadSprites() {
 	
 	NF_LoadSpriteGfx("sprites/9", 29, 16, 16);
 	NF_VramSpriteGfx(0, 29, 29, false);
-	
-	NF_LoadSpriteGfx("sprites/A button", 3, 16, 16);
-	NF_LoadSpritePal("sprites/A button", 3);
+
+	NF_LoadSpriteGfx("sprites/A button", 3, 16, 16); //Used to tell the player he can press A to continue. This can be useless if you're a big Nintendo gamer, BUT I am showing this project to non-gamers, so I need to make it intuitive.
+	NF_LoadSpritePal("sprites/A button", 3);	//Bro is telling his life LOL
 	NF_VramSpriteGfx(1, 3, 3, false);
 	NF_VramSpritePal(1, 3, 3);
-	
-	NF_LoadSpriteGfx("sprites/Goat", 4, 32, 32);
+
+	NF_LoadSpriteGfx("sprites/Goat", 4, 32, 32); //Goat showing on wrong door to tell it's the wrong door.
 	NF_LoadSpritePal("sprites/Goat", 4);
 	NF_VramSpriteGfx(1, 4, 4, false);
 	NF_VramSpritePal(1, 4, 4);
 
-	NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 64, 32);
-	NF_LoadSpritePal("sprites/Arrowbeta", 5);
+	NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 64, 32);	//Why "beta"? i don't know. I should rename all my sprites and backgrounds.
+	NF_LoadSpritePal("sprites/Arrowbeta", 5);	//Used in Titlescreen
 	NF_VramSpriteGfx(1, 5, 5, false);
 	NF_VramSpritePal(1, 5, 5);
 
-	NF_LoadSpriteGfx("sprites/Arrowbeta_vertical", 6, 16, 32);
+	NF_LoadSpriteGfx("sprites/Arrowbeta_vertical", 6, 16, 32); //Like the arrowbeta but smaller and vertical. Used in door selection.
 	NF_LoadSpritePal("sprites/Arrowbeta_vertical", 6);
 	NF_VramSpriteGfx(1, 6, 6, false);
 	NF_VramSpritePal(1, 6, 6);
 
-	NF_LoadSpriteGfx("sprites/Arrowbeta_small", 7, 32, 16);
+	NF_LoadSpriteGfx("sprites/Arrowbeta_small", 7, 32, 16);	//Like the arrowbeta but smaller. Used to ask the player if he/she wants to change.
 	NF_LoadSpritePal("sprites/Arrowbeta_small", 7);
 	NF_VramSpriteGfx(1, 7, 7, false);
 	NF_VramSpritePal(1, 7, 7);
 
-	NF_LoadSpriteGfx("sprites/CurrentDoorTop", 8, 64, 64);
+	NF_LoadSpriteGfx("sprites/CurrentDoorTop", 8, 64, 64);	//Red Highlight on chosen door, top part (this sprite is split, because of the 64x64 limit with GRIT).
 	NF_LoadSpritePal("sprites/CurrentDoorTop", 8);
 	NF_VramSpriteGfx(1, 8, 8, false);
 	NF_VramSpritePal(1, 8, 8);
 
-	NF_LoadSpriteGfx("sprites/CurrentDoorBottom", 9, 64, 64);
+	NF_LoadSpriteGfx("sprites/CurrentDoorBottom", 9, 64, 64);	//Red Highlight on chosen door, bottom part
 	NF_LoadSpritePal("sprites/CurrentDoorBottom", 9);
 	NF_VramSpriteGfx(1, 9, 9, false);
 	NF_VramSpritePal(1, 9, 9);
 
-	NF_LoadSpriteGfx("sprites/Door1Top", 10, 64, 64);
+	NF_LoadSpriteGfx("sprites/Door1Top", 10, 64, 64);	//Sprites must be split because of the size limit
 	NF_LoadSpritePal("sprites/Door1Top", 10);
 	NF_VramSpriteGfx(1, 10, 10, false);
 	NF_VramSpritePal(1, 10, 10);
@@ -121,6 +129,20 @@ void LoadSprites() {
 	NF_VramSpriteGfx(1, 12, 12, false);
 	NF_VramSpritePal(1, 12, 12);
 	
+	NF_LoadSpriteGfx("sprites/Door2Bottom", 13, 64, 64);
+	NF_LoadSpritePal("sprites/Door2Bottom", 13);
+	NF_VramSpriteGfx(1, 13, 13, false);
+	NF_VramSpritePal(1, 13, 13);
+
+	NF_LoadSpriteGfx("sprites/Door3Top", 14, 64, 64);
+	NF_LoadSpritePal("sprites/Door3Top", 14);
+	NF_VramSpriteGfx(1, 14, 14, false);
+	NF_VramSpritePal(1, 14, 14);
+
+	NF_LoadSpriteGfx("sprites/Door3Bottom", 15, 64, 64);
+	NF_LoadSpritePal("sprites/Door3Bottom", 15);
+	NF_VramSpriteGfx(1, 15, 15, false);
+	NF_VramSpritePal(1, 15, 15);
 }
 
 /*
@@ -128,19 +150,24 @@ void LoadSprites() {
 
 	Titlescreen() Function
 
+	Program part for titlescreen option selection
+
+	Used by: main()
+
 -------------------------------------------------
 */
 
 void Titlescreen(){
 
-	NF_MoveSprite(1, 5, arrowposx, arrowposy);
+	NF_MoveSprite(1, 5, arrowposx, arrowposy); //Reloads arrow's position
 
-	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(0);	//These five blocks update the screens. They are used on the program lotsa times.
 	NF_SpriteOamSet(1);
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
+	//Arrow horizontal animation
 	if (arrowposx == 5) {
 		arrowposx = 15;
 	}
@@ -157,24 +184,24 @@ void Titlescreen(){
 	oamUpdate(&oamSub);	
 
 	for (int wait=0; wait<=120; wait++) {
-		scanKeys();
+		scanKeys();	//Check for key detection
 
 		if ((KEY_UP & keysDown()) || (KEY_DOWN & keysDown())) {
 			
 			if (option == 1) {
-				option = 2;
+				option = 2; //Option 2: simulate option
 				arrowposy = 112;
 				NF_MoveSprite(1, 5, arrowposx, arrowposy);
-				break;
+				break; //This is needed because the game would do the second if and go back to 1.
 			}
 			if (option == 2) {
-				option = 1;
+				option = 1; //Option 1: play option
 				arrowposy = 48;
 				NF_MoveSprite(1, 5, arrowposx, arrowposy);
 			}
 		}
 		if (KEY_A & keysDown()) {
-			game = 1;
+			game = 1;	//Ends titlescreen
 		}
 	}
 }
@@ -184,12 +211,16 @@ void Titlescreen(){
 
 	MontyHallInit() Function
 
+	Loads the assets needed to play the Monty Hall problem.
+
+	Used by: MontyHallSimuPgrm(), PlayMontyHall()
+
 -------------------------------------------------
 */
 
 void MontyHallInit(){
 
-	NF_CreateSprite(1, 10, 10, 10, 16, 48);
+	NF_CreateSprite(1, 10, 10, 10, 16, 48);	//The 6 doors
 	NF_CreateSprite(1, 11, 11, 11, 16, 112);
 	NF_CreateSprite(1, 12, 12, 12, 96, 48);
 	NF_CreateSprite(1, 13, 13, 13, 96, 112);
@@ -207,6 +238,10 @@ void MontyHallInit(){
 -------------------------------------------------
 
 	ChooseDoor() Function
+
+	Same loop system as Titlescreen()
+
+	Used by: PlayMontyHall()
 
 -------------------------------------------------
 */
@@ -269,6 +304,11 @@ void ChooseDoor(){
 
 	ChangeDoor() Function
 
+	Same loop system as Titlescreen()
+
+	Used by: PlayMontyHall()
+
+
 -------------------------------------------------
 */
 
@@ -282,14 +322,14 @@ void ChangeDoor(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	if ((arrowposx == 20) || (arrowposx == 142)) {
+	if ((arrowposx == 20) || (arrowposx == 142)) { //The only diference here is the arrow movement, because the arrow animation AND option position is horizontal.
 		arrowposx += 10;
 	}
 	else {
 		arrowposx -= 0.5;
 	}
 
-	NF_MoveSprite(1, 7, arrowposx, arrowposy);
+	NF_MoveSprite(1, 7, arrowposx, arrowposy); //Actually arrowposy doesn't change in this function.
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -333,6 +373,12 @@ void ChangeDoor(){
 
 	PlayMontyall() Function
 
+	Using for player to play the game
+
+	Used by: main()
+
+	Using: MontyHallInit(), ChooseDoor(), ChangeDoor().
+
 -------------------------------------------------
 */
 
@@ -343,12 +389,12 @@ void PlayMontyHall(){
 	NF_CreateTiledBg(1, 3, "Bottom3");
 	NF_UnloadTiledBg("Bottom2");
 
-	CarDoor = rand() % 3 + 1;
+	CarDoor = rand() % 3 + 1;	//Door where the car is
 
 	MontyHallInit();
 	
 		for (int wait=0; wait<=60; wait++) {
-			swiWaitForVBlank();
+			swiWaitForVBlank();	//Waits for the next instruction. The DS is running at 60fps so waiting 60 times = wait 1 second 
 		}
 
 	NF_LoadTiledBg("bg/Top2", "Top2", 256, 256);
@@ -356,7 +402,7 @@ void PlayMontyHall(){
 	NF_CreateTiledBg(0, 3, "Top2");
 	NF_UnloadTiledBg("Top1_alt");
 	
-	NF_CreateSprite(1, 6, 6, 6, 120, 15);
+	NF_CreateSprite(1, 6, 6, 6, 120, 15);	//Arrow
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -369,17 +415,16 @@ void PlayMontyHall(){
 	option = 2;
 	game = 0;
 
-	while (game == 0) {
+	while (game == 0) {	//Game changes to 1 in this function
 		ChooseDoor();
 	}
 
-	ChosenDoor = option;
-
+	ChosenDoor = option;	//Used to calculate the x position of the door (top-left based)
 	option = (ChosenDoor - 1) * 80 + 16;
-	NF_CreateSprite(1, 9, 9, 9, option, 48);
+	NF_CreateSprite(1, 9, 9, 9, option, 48);	//Creates the door highlight
 	NF_CreateSprite(1, 8, 8, 8, option, 112);
 
-	NF_DeleteSprite(1, 6);
+	NF_DeleteSprite(1, 6);	//Arrow
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -397,16 +442,16 @@ void PlayMontyHall(){
 	}
 
 	do {
-		WrongDoor = rand() % 3 + 1;
+		WrongDoor = rand() % 3 + 1;	//Choses the wrong door, diferent from the car and chosen door. It picks a random door because of the case where the car door is the chosen door (there are in this case 2 posibilities, 1 the rest of the time)
 	} while ((WrongDoor == ChosenDoor) || (WrongDoor == CarDoor));
 
 	option = WrongDoor * 2 + 8;
-	NF_DeleteSprite(1, option);
+	NF_DeleteSprite(1, option);	//Deletes the doors
 	option += 1;
 	NF_DeleteSprite(1, option);
 	
 	option = WrongDoor * 80 - 48;	
-	NF_CreateSprite(1, 4, 4, 4, option, 96);
+	NF_CreateSprite(1, 4, 4, 4, option, 96);	//Goat
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -428,7 +473,7 @@ void PlayMontyHall(){
 	NF_CreateTiledBg(0, 3, "Top3");
 	NF_UnloadTiledBg("Top1_alt");
 
-	NF_CreateSprite(1, 7, 7, 7, 30, 15);
+	NF_CreateSprite(1, 7, 7, 7, 30, 15);	//Arrow
 
 	arrowposx = 30;
 	arrowposy = 15;
@@ -439,7 +484,7 @@ void PlayMontyHall(){
 		ChangeDoor();
 	}
 
-	NF_DeleteSprite(1, 7);
+	NF_DeleteSprite(1, 7);	//Arrow
 
 	NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
 	NF_DeleteTiledBg(0, 3);
@@ -451,15 +496,15 @@ void PlayMontyHall(){
 	NF_CreateTiledBg(1, 3, "Bottom3");
 	NF_UnloadTiledBg("Bottom3_alt");
 
-	ChosenDoorCopy = ChosenDoor;
+	ChosenDoorCopy = ChosenDoor;	//Used to change ChosenDoor while still knowing the original chosen door.
 
 	if (option == 2)
 	{
 		while ((ChosenDoor == ChosenDoorCopy) || (ChosenDoor == WrongDoor)){
-			ChosenDoor =  rand () % 3 + 1;
+			ChosenDoor =  rand () % 3 + 1;	//Determines the new door
 		}
 
-		option = (ChosenDoor - 1) * 80 + 16;
+		option = (ChosenDoor - 1) * 80 + 16;	//Deletes the new door
 		NF_MoveSprite(1, 9, option, 48);
 		NF_MoveSprite(1, 8, option, 112);
 	}
@@ -474,13 +519,13 @@ void PlayMontyHall(){
 		swiWaitForVBlank();
 	}
 
-	if (ChosenDoor == ChosenDoorCopy) {
+	if (ChosenDoor == ChosenDoorCopy) {	//If the player hasn't changed his choice
 		do {
-			ChosenDoorCopy = rand() % 3 + 1;
+			ChosenDoorCopy = rand() % 3 + 1;	//Determines the door to delete
 		} while ((ChosenDoorCopy == ChosenDoor) || (ChosenDoorCopy == WrongDoor));
 	}
 	
-	option = ChosenDoor * 2 + 8;
+	option = ChosenDoor * 2 + 8;	//Door chosen by the player
 	NF_DeleteSprite(1, option);
 	option += 1;
 	NF_DeleteSprite(1, option);
@@ -495,7 +540,7 @@ void PlayMontyHall(){
 		swiWaitForVBlank();
 	}
 	
-	option = ChosenDoorCopy * 2 + 8;
+	option = ChosenDoorCopy * 2 + 8;	//3rd door left
 	NF_DeleteSprite(1, option);
 	option += 1;
 	NF_DeleteSprite(1, option);
@@ -503,12 +548,6 @@ void PlayMontyHall(){
 	NF_DeleteSprite(1, 4);
 	NF_DeleteSprite(1, 8);
 	NF_DeleteSprite(1, 9);
-	
-	NF_SpriteOamSet(0);
-	NF_SpriteOamSet(1);
-	swiWaitForVBlank();
-	oamUpdate(&oamMain);
-	oamUpdate(&oamSub);
 
 	if (ChosenDoor == CarDoor) {
 		NF_LoadTiledBg("bg/Win", "Win", 256, 256);
@@ -535,12 +574,12 @@ void PlayMontyHall(){
 			swiWaitForVBlank();
 		}
 	
-	NF_CreateSprite(1, 3, 3, 3, 235, 171);
+	NF_CreateSprite(1, 3, 3, 3, 235, 171);	//A button
 	
 	game = 0;
 	int state = 0;
 	
-	while (1) {
+	while (game == 0) {
 		
 		if (state == 0) {
 			state = 1;
@@ -548,7 +587,7 @@ void PlayMontyHall(){
 		}
 		else {
 			state = 0;
-			NF_ShowSprite(1,  3 , false);			
+			NF_ShowSprite(1,  3 , false);	//This part makes the A button flashing
 		}
 		
 		NF_SpriteOamSet(0);
@@ -563,10 +602,6 @@ void PlayMontyHall(){
 			if (KEY_A & keysDown()) {
 				game = 1;
 			}
-		}
-		
-		if (game == 1) {
-			break;
 		}
 	}
 	
@@ -598,6 +633,12 @@ void PlayMontyHall(){
 
 	MontyHallSimuPgrm() Function
 
+	Using for CPU to simulate the game
+
+	Used by: SimulateMontyHall()
+
+	Using: MontyHallInit().
+
 -------------------------------------------------
 */
 
@@ -609,7 +650,7 @@ void MontyHallSimuPgrm(int speed) {
 	ChosenDoor = rand() % 3 + 1;
 	option = ChosenDoor * 80 - 40;
 	
-	NF_CreateSprite(1, 6, 6, 6, option, 15);
+	NF_CreateSprite(1, 6, 6, 6, option, 15);	//Creates a sprite to show CPU chosen door
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -659,8 +700,7 @@ void MontyHallSimuPgrm(int speed) {
 	NF_UnloadTiledBg("Bottom3");
 	
 	option = strategy * 122 - 92;
-	
-	NF_CreateSprite(1, 7, 7, 7, option, 15);
+	NF_CreateSprite(1, 7, 7, 7, option, 15);	//Creates a sprite to show CPU's choice (stay (1) or change (2), determined by the strategy variable)
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -674,7 +714,7 @@ void MontyHallSimuPgrm(int speed) {
 	
 	NF_DeleteSprite(1, 7);
 
-	ChosenDoorCopy = ChosenDoor;
+	ChosenDoorCopy = ChosenDoor;	//See 
 
 	if (strategy == 2)
 	{
@@ -753,6 +793,18 @@ void MontyHallSimuPgrm(int speed) {
 	}
 	
 }
+
+/*
+-------------------------------------------------
+
+	MontyHallSimuFast() Function
+
+	Faster version of MontyHallSimuPgrm(), with no graphics.
+
+	Used by: SimulateMontyHall()
+
+-------------------------------------------------
+*/
 
 void MontyHallSimuFast() {
 	
@@ -808,31 +860,29 @@ void MontyHallSimuFast() {
 
 	MontyHallSimuResults() Function
 
+	Updates the numbers on top
+
+	Used by: SimulateMontyHall()
+
 -------------------------------------------------
 */
 
 void MontyHallSimuResults() {
 
-	NF_DeleteSprite(0, 1);
-	NF_DeleteSprite(0, 2);
-	NF_DeleteSprite(0, 3);
-	NF_DeleteSprite(0, 4);
-	NF_DeleteSprite(0, 5);
-	NF_DeleteSprite(0, 6);
-	NF_DeleteSprite(0, 7);
-	NF_DeleteSprite(0, 8);
-	NF_DeleteSprite(0, 9);
-	NF_DeleteSprite(0, 10);
-	NF_DeleteSprite(0, 11);
-	NF_DeleteSprite(0, 12);
-	
+	option = 1;
+
+	for (int wait=0; wait<=11; wait++) {
+		NF_DeleteSprite(0, option);	//Deletes the number to replace it by the new one. I don't know how to do sprite frames, so I did like that.
+		option += 1;
+	}
+
 	//Determines numbers shown by the sprites
 
-	option = (StayWins - (StayWins % 100)) / 100 + 20;
+	option = (StayWins - (StayWins % 100)) / 100 + 20;	//Thousands
 	NF_CreateSprite(0, 1, option, 2, 105, 96);
-	option = ((StayWins % 100) - (StayWins % 10)) / 10 + 20;
+	option = ((StayWins % 100) - (StayWins % 10)) / 10 + 20;	//Dozens
 	NF_CreateSprite(0, 2, option, 2, 120, 96);
-	option = (StayWins % 10) + 20;
+	option = (StayWins % 10) + 20;	//Units
 	NF_CreateSprite(0, 3, option, 2, 135, 96);
 
 
@@ -859,7 +909,7 @@ void MontyHallSimuResults() {
 	option = (ChangeLoses % 10) + 20;
 	NF_CreateSprite(0, 12, option, 2, 205, 128);
 
-	
+
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
 	swiWaitForVBlank();
@@ -871,7 +921,11 @@ void MontyHallSimuResults() {
 /*
 -------------------------------------------------
 
-	MontyHallSimu() Function
+	SimulateMontyHall() Function
+
+	Simulates over 1000 games for each strategy.
+
+	Used by: main()
 
 -------------------------------------------------
 */
@@ -888,7 +942,7 @@ void SimulateMontyHall(){
 	NF_CreateTiledBg(0, 3, "Top4");
 	NF_UnloadTiledBg("Top1_alt");
 	
-	NF_CreateSprite(0, 1, 20, 2, 105, 96);
+	NF_CreateSprite(0, 1, 20, 2, 105, 96);	//Initiates sprites for the first time.
 	NF_CreateSprite(0, 2, 20, 2, 120, 96);
 	NF_CreateSprite(0, 3, 20, 2, 135, 96);
 	NF_CreateSprite(0, 4, 20, 2, 175, 96);
@@ -910,10 +964,10 @@ void SimulateMontyHall(){
 	StayWins = 0;
 	
 	for (int wait=0; wait<=3; wait++) {
-				
-		strategy = rand() % 2 + 1;
-				
-		MontyHallSimuPgrm(30);
+
+		strategy = rand() % 2 + 1;	//Determines the strategy (1: Stay, 2: Change)
+
+		MontyHallSimuPgrm(29);	//29 is the number of frames to wait, a demi-second (one more frame is automatically added)
 
 		NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
 		NF_DeleteTiledBg(1, 3);
@@ -927,8 +981,8 @@ void SimulateMontyHall(){
 	for (int wait=0; wait<=5; wait++) {
 				
 		strategy = rand() % 2 + 1;
-				
-		MontyHallSimuPgrm(15);
+
+		MontyHallSimuPgrm(14);
 
 		NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
 		NF_DeleteTiledBg(1, 3);
@@ -950,9 +1004,9 @@ void SimulateMontyHall(){
 	oamUpdate(&oamSub);
 	
 	while ((StayStrategy >= 10) || (ChangeStrategy >= 10)) {
-			
-		for (int i=0; i<=9; i++) {		
-			strategy = rand() % 2 + 1;	
+
+		for (int i=0; i<=9; i++) {	//Does 10 tests on 1 frame, 600 on 1 second.
+			strategy = rand() % 2 + 1;
 			MontyHallSimuFast();
 		}
 		MontyHallSimuResults();
@@ -986,7 +1040,7 @@ void SimulateMontyHall(){
 			MontyHallSimuResults();
 		}
 	}
-	else  {
+	else {
 			
 		game = 9 - ChangeStrategy;	
 		for (int i=0; i<=game; i++) {		
@@ -1011,7 +1065,8 @@ void SimulateMontyHall(){
 			MontyHallSimuResults();
 		}
 	}
-	
+
+
 	game = 0;
 	int state = 0;
 	
@@ -1026,33 +1081,29 @@ void SimulateMontyHall(){
 	
 	NF_CreateSprite(1, 3, 3, 3, 235, 171);
 	
-	while (1) {
-		
+	while (game == 0) {
+
 		if (state == 0) {
 			state = 1;
 			NF_ShowSprite(1,  3 , true);
 		}
 		else {
 			state = 0;
-			NF_ShowSprite(1,  3 , false);			
+			NF_ShowSprite(1,  3 , false);
 		}
-		
+
 		NF_SpriteOamSet(0);
 		NF_SpriteOamSet(1);
 		swiWaitForVBlank();
 		oamUpdate(&oamMain);
 		oamUpdate(&oamSub);
-		
+
 		for (int wait=0; wait<=30; wait++) {
 			swiWaitForVBlank();
 			scanKeys();
 			if (KEY_A & keysDown()) {
 				game = 1;
 			}
-		}
-		
-		if (game == 1) {
-			break;
 		}
 	}
 
@@ -1087,7 +1138,11 @@ void SimulateMontyHall(){
 /*
 -------------------------------------------------
 
-main
+	main
+
+	Base function of the program
+
+	Using: LoadSprites(), Titlescreen(), PlayMontyHall(), SimulateMontyHall()
 
 -------------------------------------------------
 */
@@ -1097,12 +1152,12 @@ int main()
 	srand (time (NULL)); //Init random
 	consoleDemoInit(); 
 	consoleClear();
-	iprintf("\n The Monty Hall Problem\n DS port by Rph\n\n Please wait for NitroFS to init\n\n\n (If it takes too much time,\n it probably doesn't work. See\n [PLACEHOLDER URL]\n for information.)");
+	iprintf("\n The Monty Hall Problem\n DS port by Rph\n\n Please wait for NitroFS to init\n\n\n (If it takes too much time,\n it probably doesn't work. See\n readme.txt for information.)");
 	//Print a waiting / bug message
 	swiWaitForVBlank();
 	soundEnable();
 	NF_SetRootFolder("NITROFS");
-	NF_Set2D(0,0);
+	NF_Set2D(0,0);	//Init 2D
     NF_Set2D(1,0);
     
     NF_InitTiledBgBuffers();
@@ -1117,27 +1172,17 @@ int main()
 	
 	LoadSprites();
 
-	NF_LoadSpriteGfx("sprites/Door2Bottom", 13, 64, 64);
-	NF_LoadSpritePal("sprites/Door2Bottom", 13);
-	NF_VramSpriteGfx(1, 13, 13, false);
-	NF_VramSpritePal(1, 13, 13);
-
-	NF_LoadSpriteGfx("sprites/Door3Top", 14, 64, 64);
-	NF_LoadSpritePal("sprites/Door3Top", 14);
-	NF_VramSpriteGfx(1, 14, 14, false);
-	NF_VramSpritePal(1, 14, 14);
-
-	NF_LoadSpriteGfx("sprites/Door3Bottom", 15, 64, 64);
-	NF_LoadSpritePal("sprites/Door3Bottom", 15);
-	NF_VramSpriteGfx(1, 15, 15, false);
-	NF_VramSpritePal(1, 15, 15);
-	
 	while (1){
 
 		NF_LoadTiledBg("bg/Top1", "Top1", 256, 256);
 		NF_LoadTiledBg("bg/Bottom1", "Bottom1", 256, 256);
 		NF_CreateTiledBg(0, 3, "Top1");
 		NF_CreateTiledBg(1, 3, "Bottom1");
+		
+		option = 1;
+		arrowposx = 15;
+		arrowposy = 48;
+		game = 0;
 		
 		NF_CreateSprite(1, 5, 5, 5, 15, 48);
 
@@ -1174,11 +1219,6 @@ int main()
 		else {
 			PlayMontyHall();
 		}
-		
-		option = 1;
-		arrowposx = 15;
-		arrowposy = 48;
-		game = 0;
 		
 			NF_DeleteTiledBg(1, 3);
 			NF_UnloadTiledBg("Bottom2");

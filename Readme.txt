@@ -7,7 +7,7 @@ PLAY
  - If you want to play it on a DS-family console, you need to have an hacked 3DS/2DS/DSi or a flashcard (M3, R4...).
    Simply copy the file in your ROMs directory folder.
 
- - For the emulator users, you need one that supports DLDi (see in the settings). Enable DLDi and set the sync folder to the folder where you have stored the game.
+ - For the emulator users, you need one that supports DLDi (MelonDS for example). Enable DLDi and you're good to go!
 
 EDIT
 
