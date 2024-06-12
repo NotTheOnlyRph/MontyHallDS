@@ -19,6 +19,7 @@ I organized the source code like this:
 	nitrofiles: Here is the folder containing sprites and backgrounds I use, compiled with GRIT.
 	source: Where the source code is.
 	
+About the license: This license is used only due to NFlib having the MIT license.	
 Feel free to edit, and send me a message if you want your code to be implemented here. I'll credit you. (If you don't want to, please credit me if you share it on the internet)
 
 Enjoy!
