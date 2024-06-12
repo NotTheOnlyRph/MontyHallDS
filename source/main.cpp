@@ -32,6 +32,8 @@ int ChangeLoses;	//How are you?
 
 int strategy;	//Change or stay on choice
 
+touchPosition Stylus;
+
 /*
 -------------------------------------------------
 
@@ -200,9 +202,28 @@ void Titlescreen(){
 				NF_MoveSprite(1, 5, arrowposx, arrowposy);
 			}
 		}
+
 		if (KEY_A & keysDown()) {
 			game = 1;	//Ends titlescreen
 		}
+
+		touchRead(&Stylus);
+
+		if(KEY_TOUCH & keysDown()) {
+
+			//PLay button size: 128, 46 / Button pos: 80, 41
+			if(Stylus.px >= 80 && Stylus.px <= 208 && Stylus.py >= 41 && Stylus.py <= 87){
+				NF_MoveSprite(1, 5, arrowposx, arrowposy);
+				game = 1;
+			}
+			//Simulate button pos: 80, 105
+			if(Stylus.px >= 80 && Stylus.px <= 208 && Stylus.py >= 105 && Stylus.py <= 151){
+				option = 2;
+				game = 1;
+			} //No need to load the arrow position because you directly move to the next step.
+
+		}
+
 	}
 }
 
@@ -295,7 +316,27 @@ void ChooseDoor(){
 		if (KEY_A & keysDown()) {
 			game = 1;
 		}
+
+		touchRead(&Stylus);
+
+		if(KEY_TOUCH & keysDown()) {
+
+			//Door size: 64, 128 / There's a gap of 16 between 2 doors, or between 1 door and the border. The Y position is 48.
+			if(Stylus.px >= 16 && Stylus.px <= 80 && Stylus.py >= 48 && Stylus.py <= 176){
+				option = 1;
+				game = 1;
+			}	//No need to load the arrow position because you directly move to the next step.
+			if(Stylus.px >= 96 && Stylus.px <= 160 && Stylus.py >= 48 && Stylus.py <= 176){
+				option = 2;
+				game = 1;
+			}
+			if(Stylus.px >= 176 && Stylus.px <= 240 && Stylus.py >= 48 && Stylus.py <= 176){
+				option = 3;
+				game = 1;
+			}
+		}
 	}
+
 
 }
 
@@ -363,6 +404,22 @@ void ChangeDoor(){
 
 		if (KEY_A & keysDown()) {
 			game = 1;
+		}
+
+		touchRead(&Stylus);
+
+		if(KEY_TOUCH & keysDown()) {
+
+			//Stay button size: 64, 24 / Button pos: 64, 11
+			if(Stylus.px >= 64 && Stylus.px <= 128 && Stylus.py >= 11 && Stylus.py <= 35){
+				option = 1;
+				game = 1;
+			//Change button pos: 186, 11
+			}	//No need to load the arrow position because you directly move to the next step.
+			if(Stylus.px >= 186 && Stylus.px <= 250 && Stylus.py >= 11 && Stylus.py <= 35){
+				option = 2;
+				game = 1;
+			}
 		}
 	}
 
@@ -599,7 +656,9 @@ void PlayMontyHall(){
 		for (int wait=0; wait<=30; wait++) {
 			swiWaitForVBlank();
 			scanKeys();
-			if (KEY_A & keysDown()) {
+			touchRead(&Stylus);
+
+			if ((KEY_A & keysDown()) || (KEY_TOUCH & keysDown())) {
 				game = 1;
 			}
 		}
@@ -1101,7 +1160,9 @@ void SimulateMontyHall(){
 		for (int wait=0; wait<=30; wait++) {
 			swiWaitForVBlank();
 			scanKeys();
-			if (KEY_A & keysDown()) {
+			touchRead(&Stylus);
+
+			if((KEY_A & keysDown()) || (KEY_TOUCH & keysDown())){
 				game = 1;
 			}
 		}
