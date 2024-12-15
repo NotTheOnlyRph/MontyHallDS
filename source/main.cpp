@@ -10,7 +10,7 @@
 #include <nf_lib.h> //NFLib
 
 #include <maxmod9.h>    // Audio with Maxmod
-//#include "soundbank.h"  // Soundbank definitions
+#include "soundbank.h"  // Soundbank definitions
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -198,6 +198,17 @@ void SmallRumble(){
 	}
 }
 
+
+void UnloadSFX(){
+	
+	mmUnloadEffect(SFX_CONFIRM);
+	mmUnloadEffect(SFX_CANCEL);
+	mmUnloadEffect(SFX_SELECT);
+	mmUnloadEffect(SFX_MOVE);
+
+}
+
+
 /*
 -------------------------------------------------
 
@@ -245,11 +256,17 @@ void Titlescreen(){
 			
 			option = 1 - option;
 			NF_MoveSprite(1, 5, arrowposx, arrowposy[option]);
+			
+			mmLoadEffect(SFX_MOVE);
+			mmEffect(SFX_MOVE);
 
 		}
 
 		if (KEY_A & keysDown()) {
 			game = 1;	//Ends titlescreen
+			
+			mmLoadEffect(SFX_CONFIRM);
+			mmEffect(SFX_CONFIRM);
 			
 		}
 		
@@ -272,16 +289,22 @@ void Titlescreen(){
 				NF_MoveSprite(1, 5, arrowposx, arrowposy[option]);
 				game = 1;
 				
-				
+				mmLoadEffect(SFX_CONFIRM);
+				mmEffect(SFX_CONFIRM);
 
 			}
 			//Simulate button pos: 80, 105
 			if(Stylus.px >= 80 && Stylus.px <= 208 && Stylus.py >= 105 && Stylus.py <= 151){
 
 				option = 1;
+				NF_MoveSprite(1, 5, arrowposx, arrowposy[option]);
 				game = 1;
+				
+				mmLoadEffect(SFX_CONFIRM);
+				mmEffect(SFX_CONFIRM);
+				
 
-			} //No need to load the arrow position because you directly move to the next step.
+			}
 
 		}
 
@@ -1225,7 +1248,7 @@ int main(){
 	NF_InitSpriteSys(0);
 	NF_InitSpriteSys(1);
 	
-	//mmInitDefault("nitro:/soundbank.bin"); //Init audio
+	mmInitDefault("nitro:/soundbank.bin"); //Init audio
 
 	LoadSprites();
 
@@ -1249,9 +1272,24 @@ int main(){
 		{
 			Titlescreen();
 		}
+		
+		NF_SpriteOamSet(0);
+		NF_SpriteOamSet(1);
+		swiWaitForVBlank();
+		oamUpdate(&oamMain);
+		oamUpdate(&oamSub);
+
+		if (quit == 1){	
+			break;
+		}
 
 		SmallRumble();
-
+		UnloadSFX();
+		
+		for (int wait=0; wait<=60; wait++) {
+			swiWaitForVBlank();
+		}
+		
 		NF_DeleteSprite(1, 5);
 
 		NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
@@ -1288,6 +1326,25 @@ int main(){
 		NF_DeleteTiledBg(0, 3);
 		NF_UnloadTiledBg("Top1_alt");
 
+	}
+	
+	UnloadSFX();
+	mmLoadEffect(SFX_CANCEL);
+	mmEffect(SFX_CANCEL);
+	
+	NF_DeleteTiledBg(0, 3);
+	NF_DeleteTiledBg(1, 3);
+	NF_DeleteSprite(1, 5);
+
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+
+	
+	for (int wait=0; wait<=60; wait++) {
+		swiWaitForVBlank();
 	}
 	
 	return 0;

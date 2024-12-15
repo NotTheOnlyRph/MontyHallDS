@@ -79,7 +79,7 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
  /opt/blocksds/external/nflib/include/nf_text.h \
  /opt/blocksds/external/nflib/include/nf_tiledbg.h \
  /opt/blocksds/core/libs/maxmod/include/maxmod9.h \
- /opt/blocksds/core/libs/maxmod/include/mm_types.h
+ /opt/blocksds/core/libs/maxmod/include/mm_types.h source/soundbank.h
 /opt/blocksds/core/libs/libnds/include/nds.h:
 /opt/blocksds/core/libs/libnds/include/nds/bios.h:
 /opt/blocksds/core/libs/libnds/include/nds/ndstypes.h:
@@ -161,3 +161,4 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
 /opt/blocksds/external/nflib/include/nf_tiledbg.h:
 /opt/blocksds/core/libs/maxmod/include/maxmod9.h:
 /opt/blocksds/core/libs/maxmod/include/mm_types.h:
+source/soundbank.h:
