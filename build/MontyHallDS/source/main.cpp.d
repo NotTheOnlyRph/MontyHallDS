@@ -77,6 +77,7 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
  /opt/blocksds/external/nflib/include/nf_text.h \
  /opt/blocksds/external/nflib/include/nf_tiledbg.h \
  /opt/blocksds/core/libs/libnds/include/fat.h \
+ /opt/blocksds/core/libs/libnds/include/filesystem.h \
  /opt/devkitpro/libnds/include/nds/arm9/rumble.h
 /opt/blocksds/core/libs/libnds/include/nds.h:
 /opt/blocksds/core/libs/libnds/include/nds/bios.h:
@@ -156,4 +157,5 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
 /opt/blocksds/external/nflib/include/nf_text.h:
 /opt/blocksds/external/nflib/include/nf_tiledbg.h:
 /opt/blocksds/core/libs/libnds/include/fat.h:
+/opt/blocksds/core/libs/libnds/include/filesystem.h:
 /opt/devkitpro/libnds/include/nds/arm9/rumble.h:

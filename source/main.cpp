@@ -7,6 +7,7 @@
 #include <nds.h> //Libnds
 #include <nf_lib.h> //NFLib
 #include <fat.h>
+#include <filesystem.h>
 #include </opt/devkitpro/libnds/include/nds/arm9/rumble.h> //Rumble pak support
 
 #include <stdio.h>
@@ -1201,7 +1202,16 @@ int main()
 	printf("\n The Monty Hall Problem\n DS port by Rph\n\n Please wait for NitroFS to init\n\n\n (If it takes too much time,\n it probably doesn't work. See\n readme.txt for information.)");
 	//Print a waiting / bug message
 	swiWaitForVBlank();
-	NF_SetRootFolder("NITROFS");
+	
+	if (!nitroFSInit(NULL)){
+		
+        perror("nitroFSInit()");
+        while(1){
+			
+		}
+    }
+
+	//NF_SetRootFolder("NITROFS");
 	NF_Set2D(0,0);	//Init 2D
     NF_Set2D(1,0);
     
