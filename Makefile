@@ -20,12 +20,9 @@ GAME_ICON	:= $(CURDIR)/icon.bmp
 # Source code paths
 # -----------------
 
-SOURCEDIRS	:= source
-INCLUDEDIRS	:=
-GFXDIRS		:=
-BINDIRS		:=
-AUDIODIRS	:=
-NITROFSDIR	:= $(CURDIR)/nitrofiles
+SOURCEDIRS	?= source
+AUDIODIRS ?=  audio
+NITROFSDIR	?= nitrofiles
 
 # DLDI and internal SD slot of DSi
 # --------------------------------
@@ -38,9 +35,10 @@ SDIMAGE		:= image.bin
 # Libraries
 # ---------
 
-LIBS		+= -lnflib -ldswifi9 -lnds9 -lc
+LIBS		+= -lmm9 -lnflib -ldswifi9 -lnds9 -lc
 LIBDIRS		+= $(BLOCKSDSEXT)/nflib \
 		   $(BLOCKSDS)/libs/dswifi \
+		   $(BLOCKSDS)/libs/maxmod \
 		   $(BLOCKSDS)/libs/libnds
 
 # Build artifacts
@@ -52,6 +50,7 @@ DUMP		:= build/$(NAME).dump
 MAP		:= build/$(NAME).map
 ROM		:= $(NAME).nds
 
+
 # If NITROFSDIR is set, the soundbank created by mmutil will be saved to NitroFS
 SOUNDBANKINFODIR	:= $(BUILDDIR)/maxmod
 ifeq ($(strip $(NITROFSDIR)),)
@@ -59,6 +58,7 @@ ifeq ($(strip $(NITROFSDIR)),)
 else
     SOUNDBANKDIR	:= $(BUILDDIR)/maxmod_nitrofs
 endif
+
 
 # Tools
 # -----

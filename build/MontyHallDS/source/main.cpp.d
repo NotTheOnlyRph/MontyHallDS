@@ -59,6 +59,8 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
  /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/dsp.h \
  /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/fifo.h \
  /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/tlf.h \
+ /opt/blocksds/core/libs/libnds/include/fat.h \
+ /opt/blocksds/core/libs/libnds/include/filesystem.h \
  /opt/blocksds/external/nflib/include/nf_lib.h \
  /opt/blocksds/external/nflib/include/nf_2d.h \
  /opt/blocksds/external/nflib/include/nf_sprite256.h \
@@ -76,9 +78,8 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
  /opt/blocksds/external/nflib/include/nf_text16.h \
  /opt/blocksds/external/nflib/include/nf_text.h \
  /opt/blocksds/external/nflib/include/nf_tiledbg.h \
- /opt/blocksds/core/libs/libnds/include/fat.h \
- /opt/blocksds/core/libs/libnds/include/filesystem.h \
- /opt/devkitpro/libnds/include/nds/arm9/rumble.h
+ /opt/blocksds/core/libs/maxmod/include/maxmod9.h \
+ /opt/blocksds/core/libs/maxmod/include/mm_types.h
 /opt/blocksds/core/libs/libnds/include/nds.h:
 /opt/blocksds/core/libs/libnds/include/nds/bios.h:
 /opt/blocksds/core/libs/libnds/include/nds/ndstypes.h:
@@ -139,6 +140,8 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
 /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/dsp.h:
 /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/fifo.h:
 /opt/blocksds/core/libs/libnds/include/nds/arm9/teak/tlf.h:
+/opt/blocksds/core/libs/libnds/include/fat.h:
+/opt/blocksds/core/libs/libnds/include/filesystem.h:
 /opt/blocksds/external/nflib/include/nf_lib.h:
 /opt/blocksds/external/nflib/include/nf_2d.h:
 /opt/blocksds/external/nflib/include/nf_sprite256.h:
@@ -156,6 +159,5 @@ build/MontyHallDS/source/main.cpp.o: source/main.cpp \
 /opt/blocksds/external/nflib/include/nf_text16.h:
 /opt/blocksds/external/nflib/include/nf_text.h:
 /opt/blocksds/external/nflib/include/nf_tiledbg.h:
-/opt/blocksds/core/libs/libnds/include/fat.h:
-/opt/blocksds/core/libs/libnds/include/filesystem.h:
-/opt/devkitpro/libnds/include/nds/arm9/rumble.h:
+/opt/blocksds/core/libs/maxmod/include/maxmod9.h:
+/opt/blocksds/core/libs/maxmod/include/mm_types.h:

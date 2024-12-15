@@ -5,10 +5,12 @@
 */
 
 #include <nds.h> //Libnds
-#include <nf_lib.h> //NFLib
 #include <fat.h>
 #include <filesystem.h>
-#include </opt/devkitpro/libnds/include/nds/arm9/rumble.h> //Rumble pak support
+#include <nf_lib.h> //NFLib
+
+#include <maxmod9.h>    // Audio with Maxmod
+//#include "soundbank.h"  // Soundbank definitions
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1194,8 +1196,8 @@ void SimulateMontyHall(){
 -------------------------------------------------
 */
 
-int main()
-{
+int main(){
+
 	srand (time (NULL)); //Init random
 	consoleDemoInit(); 
 	consoleClear();
@@ -1203,15 +1205,15 @@ int main()
 	//Print a waiting / bug message
 	swiWaitForVBlank();
 	
-	if (!nitroFSInit(NULL)){
-		
+    bool init_ok = nitroFSInit(NULL);
+    if (!init_ok)
+    {
         perror("nitroFSInit()");
-        while(1){
-			
-		}
+		return 0;
     }
-
-	//NF_SetRootFolder("NITROFS");
+    
+    NF_SetRootFolder("NITROFS");
+	
 	NF_Set2D(0,0);	//Init 2D
     NF_Set2D(1,0);
     
@@ -1222,6 +1224,8 @@ int main()
 	NF_InitSpriteBuffers();
 	NF_InitSpriteSys(0);
 	NF_InitSpriteSys(1);
+	
+	//mmInitDefault("nitro:/soundbank.bin"); //Init audio
 
 	LoadSprites();
 
@@ -1245,6 +1249,8 @@ int main()
 		{
 			Titlescreen();
 		}
+
+		SmallRumble();
 
 		NF_DeleteSprite(1, 5);
 
@@ -1270,17 +1276,19 @@ int main()
 		
 		if (option == 0) {
 			PlayMontyHall();
+			option = 0; //Set this to avoid game playing simulation without asking
 		}
 		if (option == 1) {
 			SimulateMontyHall();
 		}
-		
-			NF_DeleteTiledBg(1, 3);
-			NF_UnloadTiledBg("Bottom2");
+				
+		NF_DeleteTiledBg(1, 3);
+		NF_UnloadTiledBg("Bottom2");
 
-			NF_DeleteTiledBg(0, 3);
-			NF_UnloadTiledBg("Top1_alt");
+		NF_DeleteTiledBg(0, 3);
+		NF_UnloadTiledBg("Top1_alt");
 
 	}
+	
 	return 0;
 }
