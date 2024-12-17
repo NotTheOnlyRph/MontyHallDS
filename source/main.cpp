@@ -264,7 +264,6 @@ void Titlescreen(){
 
 		if (KEY_A & keysDown()) {
 			game = 1;	//Ends titlescreen
-			
 			mmLoadEffect(SFX_CONFIRM);
 			mmEffect(SFX_CONFIRM);
 			
@@ -288,7 +287,6 @@ void Titlescreen(){
 				option = 0;
 				NF_MoveSprite(1, 5, arrowposx, arrowposy[option]);
 				game = 1;
-				
 				mmLoadEffect(SFX_CONFIRM);
 				mmEffect(SFX_CONFIRM);
 
@@ -299,11 +297,9 @@ void Titlescreen(){
 				option = 1;
 				NF_MoveSprite(1, 5, arrowposx, arrowposy[option]);
 				game = 1;
-				
 				mmLoadEffect(SFX_CONFIRM);
 				mmEffect(SFX_CONFIRM);
-				
-
+	
 			}
 
 		}
@@ -384,9 +380,13 @@ void ChooseDoor(){
 		scanKeys();
 
 		if (KEY_RIGHT & keysDown()) {
+			mmLoadEffect(SFX_MOVE);
+			mmEffect(SFX_MOVE);
 			option += 1;
 		}
 		if (KEY_LEFT & keysDown()) {
+			mmLoadEffect(SFX_MOVE);
+			mmEffect(SFX_MOVE);
 			option -= 1;
 		}
 		option = (option + 3) % 3;
@@ -462,10 +462,14 @@ void ChangeDoor(){
 		scanKeys();
 
 		if (KEY_RIGHT & keysDown()) {
+			mmLoadEffect(SFX_MOVE);
+			mmEffect(SFX_MOVE);
 			option += 1;
 		}
 
 		if (KEY_LEFT & keysDown()) {
+			mmLoadEffect(SFX_MOVE);
+			mmEffect(SFX_MOVE);
 			option -= 1;
 		}
 		
@@ -547,6 +551,9 @@ void PlayMontyHall(){
 	while (game == 0) {	//Game changes to 1 in this function
 		ChooseDoor();
 	}
+	
+	mmLoadEffect(SFX_SELECT);
+	mmEffect(SFX_SELECT);
 
 	ChosenDoor = option;	//Used to calculate the x position of the door (top-left based)
 	NF_CreateSprite(1, 9, 9, 9, Doorx[option], 48);	//Creates the door highlight
@@ -606,9 +613,15 @@ void PlayMontyHall(){
 	option = 0;
 	game = 0;
 
+	UnloadSFX();
+
+
 	while (game == 0) {
 		ChangeDoor();
 	}
+	
+	mmLoadEffect(SFX_SELECT);
+	mmEffect(SFX_SELECT);
 
 	NF_DeleteSprite(1, 7);	//Arrow
 
@@ -676,6 +689,10 @@ void PlayMontyHall(){
 		NF_DeleteTiledBg(1, 3);
 		NF_CreateTiledBg(1, 3, "Win");
 		NF_UnloadTiledBg("Bottom3");
+		
+		mmLoad(MOD_GAME_WIN);
+		mmStart(MOD_GAME_WIN, MM_PLAY_ONCE);
+		
 		option = 1; //Set option to 1 to remember used BG
 	}
 	else {
@@ -683,8 +700,14 @@ void PlayMontyHall(){
 		NF_DeleteTiledBg(1, 3);
 		NF_CreateTiledBg(1, 3, "Lose");
 		NF_UnloadTiledBg("Bottom3");
+		
+		mmLoad(MOD_GAME_LOSE);
+		mmStart(MOD_GAME_LOSE, MM_PLAY_ONCE);
+		
 		option = 2; //Set option to 2 to remember used BG
 	}
+
+	int JingleWaitTime[] = {240, 180};
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -692,7 +715,7 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	for (int wait=0; wait<=60; wait++) {
+	for (int wait=0; wait<=JingleWaitTime[option - 1]; wait++) {
 			swiWaitForVBlank();
 		}
 	
@@ -700,6 +723,8 @@ void PlayMontyHall(){
 	
 	game = 0;
 	int state = 0;
+	
+	UnloadSFX();
 	
 	while (game == 0) {
 		
@@ -728,16 +753,23 @@ void PlayMontyHall(){
 			}
 		}
 	}
-	
+		
+	mmLoadEffect(SFX_SELECT);
+	mmEffect(SFX_SELECT);
+		
 	NF_DeleteSprite(1,3);	
 	NF_LoadTiledBg("bg/Bottom2", "Bottom2", 256, 256);
 	NF_DeleteTiledBg(1, 3);
 	NF_CreateTiledBg(1, 3, "Bottom2");
 
 	if (option == 1) {
+		
+		mmUnload(MOD_GAME_WIN);
 		NF_UnloadTiledBg("Win");
 	} 
 	else {
+
+		mmUnload(MOD_GAME_LOSE);
 		NF_UnloadTiledBg("Lose");
 	}
 	
@@ -785,6 +817,9 @@ void MontyHallSimuPgrm(int speed) {
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 	
+	mmLoadEffect(SFX_SELECT);
+	mmEffect(SFX_SELECT);
+	
 	for (int wait=0; wait<=speed; wait++) {
 		swiWaitForVBlank();
 	}
@@ -814,9 +849,13 @@ void MontyHallSimuPgrm(int speed) {
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
+	mmLoadEffect(SFX_MOVE);
+	mmEffect(SFX_MOVE);
+
 	for (int wait=0; wait<=speed; wait++) {
 		swiWaitForVBlank();
 	}
+
 	
 	NF_LoadTiledBg("bg/Bottom3_alt", "Bottom3_alt", 256, 256);
 	NF_DeleteTiledBg(1, 3);
@@ -830,6 +869,9 @@ void MontyHallSimuPgrm(int speed) {
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
+	
+	mmLoadEffect(SFX_MOVE);
+	mmEffect(SFX_MOVE);
 
 	for (int wait=0; wait<=speed; wait++) {
 		swiWaitForVBlank();
@@ -866,6 +908,10 @@ void MontyHallSimuPgrm(int speed) {
 		NF_DeleteTiledBg(1, 3);
 		NF_CreateTiledBg(1, 3, "Win");
 		NF_UnloadTiledBg("Bottom3_alt");
+		
+		mmLoadEffect(SFX_SIMU_WIN);
+		mmEffect(SFX_SIMU_WIN);
+		
 		option = 1; //Set option to 1 to remember used BG
 	}
 	else {
@@ -873,6 +919,10 @@ void MontyHallSimuPgrm(int speed) {
 		NF_DeleteTiledBg(1, 3);
 		NF_CreateTiledBg(1, 3, "Lose");
 		NF_UnloadTiledBg("Bottom3_alt");
+		
+		mmLoadEffect(SFX_SIMU_LOSE);
+		mmEffect(SFX_SIMU_LOSE);
+		
 		option = 2; //Set option to 2 to remember used BG
 	}
 	
@@ -881,6 +931,7 @@ void MontyHallSimuPgrm(int speed) {
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
+	
 	
 	for (int wait=0; wait<=speed; wait++) {
 		swiWaitForVBlank();
@@ -1179,6 +1230,10 @@ void SimulateMontyHall(){
 		}
 	}
 
+	mmLoadEffect(SFX_SELECT);
+	mmLoadEffect(SFX_SELECT);
+	mmEffect(SFX_SELECT);
+
 	NF_DeleteSprite(1, 3);
 
 	for (int wait=0; wait<=11; wait++) {
@@ -1250,6 +1305,7 @@ int main(){
 	
 	mmInitDefault("nitro:/soundbank.bin"); //Init audio
 
+
 	LoadSprites();
 
 	soundEnable();
@@ -1273,6 +1329,8 @@ int main(){
 			Titlescreen();
 		}
 		
+
+		
 		NF_SpriteOamSet(0);
 		NF_SpriteOamSet(1);
 		swiWaitForVBlank();
@@ -1284,7 +1342,6 @@ int main(){
 		}
 
 		SmallRumble();
-		UnloadSFX();
 		
 		for (int wait=0; wait<=60; wait++) {
 			swiWaitForVBlank();
@@ -1311,6 +1368,8 @@ int main(){
 		for (int wait=0; wait<=30; wait++) {
 			swiWaitForVBlank();
 		}
+		
+		UnloadSFX();
 		
 		if (option == 0) {
 			PlayMontyHall();
@@ -1346,6 +1405,8 @@ int main(){
 	for (int wait=0; wait<=60; wait++) {
 		swiWaitForVBlank();
 	}
+	
+	UnloadSFX();
 	
 	return 0;
 }
