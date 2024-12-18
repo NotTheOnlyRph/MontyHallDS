@@ -1304,7 +1304,7 @@ int main(){
 	NF_InitSpriteSys(1);
 	
 	mmInitDefault("nitro:/soundbank.bin"); //Init audio
-
+	mmSetModuleVolume(1024); //Set Volume
 
 	LoadSprites();
 
