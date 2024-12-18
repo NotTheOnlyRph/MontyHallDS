@@ -672,14 +672,37 @@ void PlayMontyHall(){
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
-			
-	for (int wait=0; wait<=120; wait++) {
+	
+	mmLoadEffect(SFX_DRUMROLL);
+	mmEffect(SFX_DRUMROLL);
+	
+	for (int wait=0; wait<=150; wait++) {
 		swiWaitForVBlank();
 	}
 	
+	if (ChosenDoor == CarDoor) {
+		NF_CreateSprite(1, 3, 10, 10, Doorx[ChosenDoor] + 16, 96);
+	}
+	else{
+		NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
+	}
+	
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);	
+
+	for (int wait=0; wait<=60; wait++) {
+		swiWaitForVBlank();
+	}
+
+	mmUnloadEffect(SFX_DRUMROLL);
+
 	NF_DeleteSprite(1, SpriteDelete[ChosenDoorCopy]);	//Deletes the last door
 	NF_DeleteSprite(1, SpriteDelete[ChosenDoorCopy] + 1);
 	
+	NF_DeleteSprite(1, 3);
 	NF_DeleteSprite(1, 4);
 	NF_DeleteSprite(1, 8);
 	NF_DeleteSprite(1, 9);
@@ -693,7 +716,7 @@ void PlayMontyHall(){
 		mmLoad(MOD_GAME_WIN);
 		mmStart(MOD_GAME_WIN, MM_PLAY_ONCE);
 		
-		option = 1; //Set option to 1 to remember used BG
+		option = 0; //Set option to 0 to remember win
 	}
 	else {
 		NF_LoadTiledBg("bg/Lose", "Lose", 256, 256);
@@ -704,7 +727,7 @@ void PlayMontyHall(){
 		mmLoad(MOD_GAME_LOSE);
 		mmStart(MOD_GAME_LOSE, MM_PLAY_ONCE);
 		
-		option = 2; //Set option to 2 to remember used BG
+		option = 1; //Set option to 1 to remember lose
 	}
 
 	int JingleWaitTime[] = {240, 180};
@@ -715,7 +738,7 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	for (int wait=0; wait<=JingleWaitTime[option - 1]; wait++) {
+	for (int wait=0; wait<=JingleWaitTime[option]; wait++) {
 			swiWaitForVBlank();
 		}
 	
@@ -762,7 +785,7 @@ void PlayMontyHall(){
 	NF_DeleteTiledBg(1, 3);
 	NF_CreateTiledBg(1, 3, "Bottom2");
 
-	if (option == 1) {
+	if (ChosenDoor == CarDoor) {
 		
 		mmUnload(MOD_GAME_WIN);
 		NF_UnloadTiledBg("Win");

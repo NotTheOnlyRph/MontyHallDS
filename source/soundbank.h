@@ -6,6 +6,7 @@
 #define SFX_SIMU_WIN	5
 #define MOD_GAME_WIN	0
 #define MOD_GAME_LOSE	1
+#define SFX_DRUMROLL	8
 #define MSL_NSONGS	2
-#define MSL_NSAMPS	8
-#define MSL_BANKSIZE	10
+#define MSL_NSAMPS	9
+#define MSL_BANKSIZE	11
