@@ -40,6 +40,8 @@ int strategy;	//Change or stay on choice
 bool rumble = false; //Used for rumble pack detection
 uint8_t intensity = 0; //Rumbling max intensity
 
+int select_hold; //The time to check if SELECT button is held
+
 touchPosition Stylus;
 
 
@@ -180,7 +182,7 @@ void CheckRumble(){
 		
 		if(rumble== true){
 			
-			intensity = (rumble + 1) % (rumbleGetMaxRawStrength() + 1);
+			intensity = rumbleGetMaxRawStrength();
 			peripheralSlot2InitDefault();
 		}
 	} 
@@ -190,12 +192,33 @@ void CheckRumble(){
 void SmallRumble(){
 
 	CheckRumble();
+	
 	if(rumble == true){
-		
-		
 		rumbleTick(intensity);
 		
 	}
+}
+
+void RumbleStart() {
+	
+	CheckRumble();
+	
+	if(rumble == true){
+		setRumble(1, intensity);
+		
+	}	
+	
+}
+
+void RumbleEnd() {
+	
+	CheckRumble();
+	
+	if(rumble == true){
+		setRumble(0, intensity);
+		
+	}	
+	
 }
 
 
@@ -270,11 +293,17 @@ void Titlescreen(){
 		}
 		
 		if (KEY_SELECT & keysHeld()) {
-
+			select_hold += 1;
+		}
+		else {
+			select_hold = 0;
+		}
+		
+		if (select_hold >= 10800){ //If SELECT is held more than 3 seconds (120 = 2 frames, 3 secs = 180 frames)
+			
 			game = 1;	//Ends titlescreen
 			quit = 1;	//Quits game
 			option = 2;
-	
 		}
 
 		touchRead(&Stylus);
@@ -517,23 +546,19 @@ void PlayMontyHall(){
 	int Doorx[] = {16, 96, 176};
 	int SpriteDelete[] = {10, 12, 14};
 
-	NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom3");
-	NF_UnloadTiledBg("Bottom2");
+	NF_LoadTiledBg("bg/Bottom/Game_doors", "Doors_B", 256, 256);
+	NF_CreateTiledBg(1, 1, "Doors_B");
 
 	CarDoor = rand() % 3;	//Door where the car is
 
 	MontyHallInit();
 	
-		for (int wait=0; wait<=60; wait++) {
-			swiWaitForVBlank();	//Waits for the next instruction. The DS is running at 60fps so waiting 60 times = wait 1 second 
-		}
+	for (int wait=0; wait<=60; wait++) {
+		swiWaitForVBlank();	//Waits for the next instruction. The DS is running at 60fps so waiting 60 times = wait 1 second 
+	}
 
-	NF_LoadTiledBg("bg/Top2", "Top2", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top2");
-	NF_UnloadTiledBg("Top1_alt");
+	NF_LoadTiledBg("bg/Top/Game_choose_door", "Choose_T", 256, 256);
+	NF_CreateTiledBg(0, 1, "Choose_T");
 	
 	NF_CreateSprite(1, 6, 6, 6, 120, 15);	//Arrow
 
@@ -561,17 +586,15 @@ void PlayMontyHall(){
 
 	NF_DeleteSprite(1, 6);	//Arrow
 	
+	NF_DeleteTiledBg(0, 1);
+	NF_UnloadTiledBg("Choose_T");
+	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
-	
-	NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top1_alt");
-	NF_UnloadTiledBg("Top2");
-	
+		
 	for (int wait=0; wait<=60; wait++) {
 		swiWaitForVBlank();
 	}
@@ -596,15 +619,11 @@ void PlayMontyHall(){
 		swiWaitForVBlank();
 	}
 
-	NF_LoadTiledBg("bg/Bottom3_alt", "Bottom3_alt", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom3_alt");
-	NF_UnloadTiledBg("Bottom3");
+	NF_LoadTiledBg("bg/Bottom/Game_change_select", "Change_B", 256, 256);
+	NF_CreateTiledBg(1, 0, "Change_B");
 	
-	NF_LoadTiledBg("bg/Top3", "Top3", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top3");
-	NF_UnloadTiledBg("Top1_alt");
+	NF_LoadTiledBg("bg/Top/Game_change_door", "Change_T", 256, 256);
+	NF_CreateTiledBg(0, 0, "Change_T");
 
 	NF_CreateSprite(1, 7, 7, 7, 20, 15);	//Arrow
 
@@ -625,15 +644,11 @@ void PlayMontyHall(){
 
 	NF_DeleteSprite(1, 7);	//Arrow
 
-	NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top1_alt");
-	NF_UnloadTiledBg("Top3");
+	NF_DeleteTiledBg(0, 0);
+	NF_UnloadTiledBg("Change_T");
+	NF_DeleteTiledBg(1, 0);
+	NF_UnloadTiledBg("Change_B");
 	
-	NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom3");
-	NF_UnloadTiledBg("Bottom3_alt");
 
 	ChosenDoorCopy = ChosenDoor;	//Used to change ChosenDoor while still knowing the original chosen door.
 
@@ -673,6 +688,8 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 	
+	RumbleStart();
+	
 	mmLoadEffect(SFX_DRUMROLL);
 	mmEffect(SFX_DRUMROLL);
 	
@@ -686,6 +703,8 @@ void PlayMontyHall(){
 	else{
 		NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
 	}
+	
+	RumbleEnd();
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -707,11 +726,15 @@ void PlayMontyHall(){
 	NF_DeleteSprite(1, 8);
 	NF_DeleteSprite(1, 9);
 
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);	
+
 	if (ChosenDoor == CarDoor) {
 		NF_LoadTiledBg("bg/Win", "Win", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Win");
-		NF_UnloadTiledBg("Bottom3");
+		NF_CreateTiledBg(1, 0, "Win");
 		
 		mmLoad(MOD_GAME_WIN);
 		mmStart(MOD_GAME_WIN, MM_PLAY_ONCE);
@@ -720,9 +743,7 @@ void PlayMontyHall(){
 	}
 	else {
 		NF_LoadTiledBg("bg/Lose", "Lose", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Lose");
-		NF_UnloadTiledBg("Bottom3");
+		NF_CreateTiledBg(1, 0, "Lose");
 		
 		mmLoad(MOD_GAME_LOSE);
 		mmStart(MOD_GAME_LOSE, MM_PLAY_ONCE);
@@ -781,10 +802,9 @@ void PlayMontyHall(){
 	mmEffect(SFX_SELECT);
 		
 	NF_DeleteSprite(1,3);	
-	NF_LoadTiledBg("bg/Bottom2", "Bottom2", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom2");
-
+	NF_DeleteTiledBg(1, 0);
+	NF_DeleteTiledBg(1, 1);
+	
 	if (ChosenDoor == CarDoor) {
 		
 		mmUnload(MOD_GAME_WIN);
@@ -850,6 +870,7 @@ void MontyHallSimuPgrm(int speed) {
 	
 	NF_CreateSprite(1, 9, 9, 9, Doorx[ChosenDoor] - 24, 48); // -24 because Doorx[ChosenDoor] is too much on the right
 	NF_CreateSprite(1, 8, 8, 8, Doorx[ChosenDoor] - 24, 112);
+	
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -865,6 +886,7 @@ void MontyHallSimuPgrm(int speed) {
 	
 	NF_DeleteSprite(1, SpriteDelete[WrongDoor]);
 	NF_DeleteSprite(1, SpriteDelete[WrongDoor] + 1);
+	NF_CreateSprite(1, 4, 4, 4, Doorx[WrongDoor] - 8, 96);	//Goat
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -880,10 +902,8 @@ void MontyHallSimuPgrm(int speed) {
 	}
 
 	
-	NF_LoadTiledBg("bg/Bottom3_alt", "Bottom3_alt", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom3_alt");
-	NF_UnloadTiledBg("Bottom3");
+	NF_LoadTiledBg("bg/Bottom/Game_change_select", "Change_B", 256, 256);
+	NF_CreateTiledBg(1, 0, "Change_B");
 	
 	NF_CreateSprite(1, 7, 7, 7, StayOrChange[strategy - 1], 15);	//Creates a sprite to show CPU's choice (stay (1) or change (2), determined by the strategy variable)
 	
@@ -923,14 +943,15 @@ void MontyHallSimuPgrm(int speed) {
 	NF_DeleteSprite(1, SpriteDelete[ChosenDoorCopy]);
 	NF_DeleteSprite(1, SpriteDelete[ChosenDoorCopy] + 1);
 
+	NF_DeleteSprite(1, 4);
 	NF_DeleteSprite(1, 8);
 	NF_DeleteSprite(1, 9);
 
 	if (ChosenDoor == CarDoor) {
 		NF_LoadTiledBg("bg/Win", "Win", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Win");
-		NF_UnloadTiledBg("Bottom3_alt");
+		NF_DeleteTiledBg(1, 0);
+		NF_CreateTiledBg(1, 0, "Win");
+		NF_UnloadTiledBg("Change_B");
 		
 		mmLoadEffect(SFX_SIMU_WIN);
 		mmEffect(SFX_SIMU_WIN);
@@ -939,9 +960,9 @@ void MontyHallSimuPgrm(int speed) {
 	}
 	else {
 		NF_LoadTiledBg("bg/Lose", "Lose", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Lose");
-		NF_UnloadTiledBg("Bottom3_alt");
+		NF_DeleteTiledBg(1, 0);
+		NF_CreateTiledBg(1, 0, "Lose");
+		NF_UnloadTiledBg("Change_B");
 		
 		mmLoadEffect(SFX_SIMU_LOSE);
 		mmEffect(SFX_SIMU_LOSE);
@@ -959,6 +980,8 @@ void MontyHallSimuPgrm(int speed) {
 	for (int wait=0; wait<=speed; wait++) {
 		swiWaitForVBlank();
 	}
+	
+	NF_DeleteTiledBg(1, 0);
 	
 	if (option == 1) {
 		NF_UnloadTiledBg("Win");
@@ -1116,15 +1139,11 @@ void MontyHallSimuResults() {
 
 void SimulateMontyHall(){
 
-	NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom3");
-	NF_UnloadTiledBg("Bottom2");
+	NF_LoadTiledBg("bg/Bottom/Game_doors", "Doors_B", 256, 256);
+	NF_CreateTiledBg(1, 1, "Doors_B");
 	
-	NF_LoadTiledBg("bg/Top4", "Top4", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top4");
-	NF_UnloadTiledBg("Top1_alt");
+	NF_LoadTiledBg("bg/Top/Simu", "Simu_T", 256, 256);
+	NF_CreateTiledBg(0, 1, "Simu_T");
 	
 	int NumbersX[] = {105, 120, 135, 175, 190, 205, 105, 120, 135, 175, 190, 205};
 	int NumbersY[] = {96, 96, 96, 96, 96, 96, 128, 128, 128, 128, 128, 128};	
@@ -1149,10 +1168,6 @@ void SimulateMontyHall(){
 
 		MontyHallSimuPgrm(29);	//29 is the number of frames to wait, a demi-second (one more frame is automatically added)
 
-		NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Bottom3");
-
 		MontyHallSimuResults();
 
 	}
@@ -1164,27 +1179,23 @@ void SimulateMontyHall(){
 
 		MontyHallSimuPgrm(14);
 
-		NF_LoadTiledBg("bg/Bottom3", "Bottom3", 256, 256);
-		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Bottom3");	
-
 		MontyHallSimuResults();
 	
 	}
 
 	//Here the games start simulating fast
 	
-	NF_LoadTiledBg("bg/Bottom4", "Bottom4", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom4");
-	NF_UnloadTiledBg("Bottom3");
+	NF_LoadTiledBg("bg/Bottom/Simu_progress", "Simu_B", 256, 256);
+	NF_CreateTiledBg(1, 0, "Simu_B");
 	
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
 	swiWaitForVBlank();
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
-
+	
+	NF_DeleteTiledBg(1, 1);
+	NF_UnloadTiledBg("Doors_B");
 
 	while((ChangeStrategy > 9) && (StayStrategy > 9)) {
 
@@ -1211,10 +1222,23 @@ void SimulateMontyHall(){
 	MontyHallSimuResults();
 
 	
-	NF_LoadTiledBg("bg/Bottom5", "Bottom5", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom5");
-	NF_UnloadTiledBg("Bottom4");
+	NF_LoadTiledBg("bg/Bottom/Simu_finished", "Simu_B_END", 256, 256);
+	NF_CreateTiledBg(1, 1, "Simu_B_END");
+
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
+	
+	NF_DeleteTiledBg(1, 0);
+	NF_UnloadTiledBg("Simu_B");
+	
+	NF_SpriteOamSet(0);
+	NF_SpriteOamSet(1);
+	swiWaitForVBlank();
+	oamUpdate(&oamMain);
+	oamUpdate(&oamSub);
 	
 	for (int wait=0; wait<=60; wait++) {
 		swiWaitForVBlank();
@@ -1263,15 +1287,11 @@ void SimulateMontyHall(){
 		NF_DeleteSprite(0, wait+1);
 	}
 
-	NF_LoadTiledBg("bg/Bottom2", "Bottom2", 256, 256);
-	NF_DeleteTiledBg(1, 3);
-	NF_CreateTiledBg(1, 3, "Bottom2");
-	NF_UnloadTiledBg("Bottom5");
+	NF_DeleteTiledBg(1, 1);
+	NF_UnloadTiledBg("Simu_B_END");
 	
-	NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
-	NF_DeleteTiledBg(0, 3);
-	NF_CreateTiledBg(0, 3, "Top1_alt");
-	NF_UnloadTiledBg("Top4");
+	NF_DeleteTiledBg(0, 1);
+	NF_UnloadTiledBg("Simu_T");
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -1327,7 +1347,6 @@ int main(){
 	NF_InitSpriteSys(1);
 	
 	mmInitDefault("nitro:/soundbank.bin"); //Init audio
-	mmSetModuleVolume(1024); //Set Volume
 
 	LoadSprites();
 
@@ -1335,10 +1354,15 @@ int main(){
 
 	while (quit == 0){
 
-		NF_LoadTiledBg("bg/Top1", "Top1", 256, 256);
-		NF_LoadTiledBg("bg/Bottom1", "Bottom1", 256, 256);
-		NF_CreateTiledBg(0, 3, "Top1");
-		NF_CreateTiledBg(1, 3, "Bottom1");
+		
+		soundDisable();
+		soundEnable();
+
+
+		NF_LoadTiledBg("bg/Top/Title", "Title_T", 256, 256);
+		NF_LoadTiledBg("bg/Bottom/Title", "Title_B", 256, 256);
+		NF_CreateTiledBg(0, 3, "Title_T");
+		NF_CreateTiledBg(1, 3, "Title_B");
 		
 		option = 0;
 		arrowposx = 15;
@@ -1351,9 +1375,7 @@ int main(){
 		{
 			Titlescreen();
 		}
-		
-
-		
+				
 		NF_SpriteOamSet(0);
 		NF_SpriteOamSet(1);
 		swiWaitForVBlank();
@@ -1372,16 +1394,22 @@ int main(){
 		
 		NF_DeleteSprite(1, 5);
 
-		NF_LoadTiledBg("bg/Top1_alt", "Top1_alt", 256, 256);
+		NF_LoadTiledBg("bg/Top/Blurred", "Blurred_T", 256, 256);
+		NF_CreateTiledBg(0, 2, "Blurred_T");
+		NF_LoadTiledBg("bg/Bottom/Empty", "Empty_B", 256, 256);
+		NF_CreateTiledBg(1, 2, "Empty_B");
+
+		NF_SpriteOamSet(0);
+		NF_SpriteOamSet(1);
+		swiWaitForVBlank();
+		oamUpdate(&oamMain);
+		oamUpdate(&oamSub);
+		
 		NF_DeleteTiledBg(0, 3);
-		NF_CreateTiledBg(0, 3, "Top1_alt");
-		NF_UnloadTiledBg("Top1");
-
-		NF_LoadTiledBg("bg/Bottom2", "Bottom2", 256, 256);
+		NF_UnloadTiledBg("Title_T");	
 		NF_DeleteTiledBg(1, 3);
-		NF_CreateTiledBg(1, 3, "Bottom2");
-		NF_UnloadTiledBg("Bottom1");
-
+		NF_UnloadTiledBg("Title_B");
+		
 		NF_SpriteOamSet(0);
 		NF_SpriteOamSet(1);
 		swiWaitForVBlank();
@@ -1402,11 +1430,10 @@ int main(){
 			SimulateMontyHall();
 		}
 				
-		NF_DeleteTiledBg(1, 3);
-		NF_UnloadTiledBg("Bottom2");
-
-		NF_DeleteTiledBg(0, 3);
-		NF_UnloadTiledBg("Top1_alt");
+		NF_DeleteTiledBg(1, 2);
+		NF_UnloadTiledBg("Empty_B");
+		NF_DeleteTiledBg(0, 2);
+		NF_UnloadTiledBg("Blurred_T");
 
 	}
 	
