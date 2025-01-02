@@ -10,16 +10,16 @@ Archive member included to satisfy reference by file (symbol)
                               /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_memory.s.o) (mmFlushBank)
 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_soundbank.s.o)
                               /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_main9.s.o) (mmSoundBankInMemory)
+/opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                              build/MontyHallDS/source/main.cpp.o (NF_Set2D)
 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                              build/MontyHallDS/source/main.cpp.o (NF_SetRootFolder)
+                              /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o) (NF_Error)
 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
                               build/MontyHallDS/source/main.cpp.o (NF_InitSpriteBuffers)
 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
                               build/MontyHallDS/source/main.cpp.o (NF_InitTiledBgBuffers)
-/opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
-                              build/MontyHallDS/source/main.cpp.o (NF_Set2D)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
-                              build/MontyHallDS/source/title.cpp.o (swiWaitForVBlank)
+                              build/MontyHallDS/source/game.cpp.o (swiWaitForVBlank)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(mpu_setup.s.o)
                               /opt/blocksds/core/sys/crts/ds_arm9_crt0.o (__libnds_mpu_setup)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cp15.s.o)
@@ -39,7 +39,7 @@ Archive member included to satisfy reference by file (symbol)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(securearea.c.o)
                               /opt/blocksds/core/sys/crts/ds_arm9_crt0.o (__secure_area__)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
-                              build/MontyHallDS/source/title.cpp.o (scanKeys)
+                              build/MontyHallDS/source/game.cpp.o (scanKeys)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
                               /opt/blocksds/core/sys/crts/ds_arm9_crt0.o (initSystem)
 /opt/blocksds/core/libs/libnds/lib/libnds9.a(gurumeditation.c.o)
@@ -163,7 +163,7 @@ Archive member included to satisfy reference by file (symbol)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_search_bsearch.c.o)
                               /opt/blocksds/core/libs/libnds/lib/libnds9.a(trig.c.o) (bsearch)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_rand.c.o)
-                              build/MontyHallDS/source/simu.cpp.o (rand)
+                              build/MontyHallDS/source/game.cpp.o (rand)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_random.c.o)
                               /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_rand.c.o) (random)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_srand.c.o)
@@ -227,7 +227,7 @@ Archive member included to satisfy reference by file (symbol)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_setvbuf.c.o)
                               /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o) (setvbuf)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_snprintf.c.o)
-                              /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o) (snprintf)
+                              /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o) (snprintf)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_sscanf.c.o)
                               /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzset.c.o) (sscanf)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_strtoul.c.o)
@@ -323,11 +323,11 @@ Archive member included to satisfy reference by file (symbol)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_ashldi3.o)
                               /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfscanf.c.o) (__aeabi_llsl)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_arm_addsubdf3.o)
-                              build/MontyHallDS/source/title.cpp.o (__aeabi_dsub)
+                              build/MontyHallDS/source/game.cpp.o (__aeabi_dsub)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_arm_cmpdf2.o)
                               /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfscanf.c.o) (__aeabi_dcmpeq)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_arm_fixdfsi.o)
-                              build/MontyHallDS/source/title.cpp.o (__aeabi_d2iz)
+                              build/MontyHallDS/source/game.cpp.o (__aeabi_d2iz)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_arm_truncdfsf2.o)
                               /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfscanf.c.o) (__aeabi_d2f)
 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_clzsi2.o)
@@ -348,9 +348,9 @@ Discarded input sections
  .text          0x00000000        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
  .data          0x00000000        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
  .bss           0x00000000        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
- .text          0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
- .data          0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
- .bss           0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
+ .text          0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
+ .data          0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
+ .bss           0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
  .text          0x00000000        0x0 build/MontyHallDS/source/main.cpp.o
  .data          0x00000000        0x0 build/MontyHallDS/source/main.cpp.o
  .bss           0x00000000        0x0 build/MontyHallDS/source/main.cpp.o
@@ -359,9 +359,9 @@ Discarded input sections
  .text          0x00000000        0x0 build/MontyHallDS/source/simu.cpp.o
  .data          0x00000000        0x0 build/MontyHallDS/source/simu.cpp.o
  .bss           0x00000000        0x0 build/MontyHallDS/source/simu.cpp.o
- .text          0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
- .data          0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
- .bss           0x00000000        0x0 build/MontyHallDS/source/game.cpp.o
+ .text          0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
+ .data          0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
+ .bss           0x00000000        0x0 build/MontyHallDS/source/title.cpp.o
  .data          0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_main9.s.o)
  .data          0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_comms.s.o)
  .data          0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_memory.s.o)
@@ -369,6 +369,21 @@ Discarded input sections
  .data          0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_flusher.s.o)
  .bss           0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_flusher.s.o)
  .data          0x00000000        0x0 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_soundbank.s.o)
+ .text          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .data          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .bss           0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .rodata.NF_SpriteFrame.str1.4
+                0x00000000       0x15 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .text.NF_SpriteFrame
+                0x00000000       0xb8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .rodata.NF_EnableSpriteRotScale.str1.4
+                0x00000000        0xf /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .text.NF_EnableSpriteRotScale
+                0x00000000       0x6c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .text.NF_DisableSpriteRotScale
+                0x00000000       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+ .text.NF_SpriteRotScale
+                0x00000000       0x6c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
  .text          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .data          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .bss           0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
@@ -442,21 +457,6 @@ Discarded input sections
                 0x00000000       0x38 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
  .text.NF_RotateTileGfx
                 0x00000000      0x104 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
- .text          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .data          0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .bss           0x00000000        0x0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .rodata.NF_SpriteFrame.str1.4
-                0x00000000       0x15 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .text.NF_SpriteFrame
-                0x00000000       0xb8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .rodata.NF_EnableSpriteRotScale.str1.4
-                0x00000000        0xf /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .text.NF_EnableSpriteRotScale
-                0x00000000       0x6c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .text.NF_DisableSpriteRotScale
-                0x00000000       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
- .text.NF_SpriteRotScale
-                0x00000000       0x6c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
  .text          0x00000000        0x0 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
  .data          0x00000000        0x0 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
  .bss           0x00000000        0x0 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
@@ -1814,117 +1814,117 @@ Linker script and memory map
                 0x02005d24                __udivmoddi4
  *(EXCLUDE_FILE(*.twl* *.itcm*) .stub)
  *(EXCLUDE_FILE(*.twl* *.itcm*) .text.*)
- .text._Z5Titlev
-                0x02005ebc      0x214 build/MontyHallDS/source/title.cpp.o
-                0x02005ebc                Title()
- .text._Z11LoadSpritesv
-                0x020060d0      0x2e4 build/MontyHallDS/source/main.cpp.o
-                0x020060d0                LoadSprites()
- .text._Z11CheckRumblev
-                0x020063b4       0x40 build/MontyHallDS/source/main.cpp.o
-                0x020063b4                CheckRumble()
- .text._Z11RumbleStartv
-                0x020063f4       0x4c build/MontyHallDS/source/main.cpp.o
-                0x020063f4                RumbleStart()
- .text._Z9RumbleEndv
-                0x02006440       0x4c build/MontyHallDS/source/main.cpp.o
-                0x02006440                RumbleEnd()
- .text._Z9UnloadSFXv
-                0x0200648c       0x1c build/MontyHallDS/source/main.cpp.o
-                0x0200648c                UnloadSFX()
- .text.startup.main
-                0x020064a8      0x334 build/MontyHallDS/source/main.cpp.o
-                0x020064a8                main
- .text._Z17MontyHallSimuPgrmi
-                0x020067dc      0x468 build/MontyHallDS/source/simu.cpp.o
-                0x020067dc                MontyHallSimuPgrm(int)
- .text._Z17MontyHallSimuFastv
-                0x02006c44      0x118 build/MontyHallDS/source/simu.cpp.o
-                0x02006c44                MontyHallSimuFast()
- .text._Z20MontyHallSimuResultsv
-                0x02006d5c      0x158 build/MontyHallDS/source/simu.cpp.o
-                0x02006d5c                MontyHallSimuResults()
- .text._Z17SimulateMontyHallv
-                0x02006eb4      0x398 build/MontyHallDS/source/simu.cpp.o
-                0x02006eb4                SimulateMontyHall()
  .text._Z10ChooseDoorv
-                0x0200724c      0x1a8 build/MontyHallDS/source/game.cpp.o
-                0x0200724c                ChooseDoor()
+                0x02005ebc      0x1a8 build/MontyHallDS/source/game.cpp.o
+                0x02005ebc                ChooseDoor()
  .text._Z10ChangeDoorv
-                0x020073f4      0x19c build/MontyHallDS/source/game.cpp.o
-                0x020073f4                ChangeDoor()
+                0x02006064      0x19c build/MontyHallDS/source/game.cpp.o
+                0x02006064                ChangeDoor()
  .text._Z13PlayMontyHallv
-                0x02007590      0x6c4 build/MontyHallDS/source/game.cpp.o
-                0x02007590                PlayMontyHall()
- .text.NF_Error
-                0x02007c54      0x2d8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                0x02007c54                NF_Error
- .text.NF_SetRootFolder
-                0x02007f2c      0x1dc /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                0x02007f2c                NF_SetRootFolder
- .text.NF_DmaMemCopy
-                0x02008108       0x7c /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                0x02008108                NF_DmaMemCopy
- .text.NF_FileLoad
-                0x02008184       0xac /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                0x02008184                NF_FileLoad
- .text.NF_InitSpriteBuffers
-                0x02008230       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008230                NF_InitSpriteBuffers
- .text.NF_InitSpriteSys
-                0x0200828c      0x204 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0200828c                NF_InitSpriteSys
- .text.NF_LoadSpriteGfx
-                0x02008490       0x98 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008490                NF_LoadSpriteGfx
- .text.NF_LoadSpritePal
-                0x02008528       0x80 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008528                NF_LoadSpritePal
- .text.NF_VramSpriteGfx
-                0x020085a8      0x298 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x020085a8                NF_VramSpriteGfx
- .text.NF_VramSpritePal
-                0x02008840       0xb0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008840                NF_VramSpritePal
- .text.NF_CreateSprite
-                0x020088f0      0x1c8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x020088f0                NF_CreateSprite
- .text.NF_DeleteSprite
-                0x02008ab8       0x80 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008ab8                NF_DeleteSprite
- .text.NF_SpriteOamSet
-                0x02008b38       0xc4 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02008b38                NF_SpriteOamSet
- .text.NF_InitTiledBgBuffers
-                0x02008bfc       0x94 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x02008bfc                NF_InitTiledBgBuffers
- .text.NF_InitTiledBgSys
-                0x02008c90      0x164 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x02008c90                NF_InitTiledBgSys
- .text.NF_LoadTiledBg
-                0x02008df4      0x1ac /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x02008df4                NF_LoadTiledBg
- .text.NF_UnloadTiledBg
-                0x02008fa0       0x9c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x02008fa0                NF_UnloadTiledBg
- .text.NF_DeleteTiledBg
-                0x0200903c      0x18c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0200903c                NF_DeleteTiledBg
- .text.NF_CreateTiledBg
-                0x020091c8      0x56c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x020091c8                NF_CreateTiledBg
+                0x02006200      0x6c4 build/MontyHallDS/source/game.cpp.o
+                0x02006200                PlayMontyHall()
+ .text._Z11LoadSpritesv
+                0x020068c4      0x2e4 build/MontyHallDS/source/main.cpp.o
+                0x020068c4                LoadSprites()
+ .text._Z11CheckRumblev
+                0x02006ba8       0x40 build/MontyHallDS/source/main.cpp.o
+                0x02006ba8                CheckRumble()
+ .text._Z11RumbleStartv
+                0x02006be8       0x4c build/MontyHallDS/source/main.cpp.o
+                0x02006be8                RumbleStart()
+ .text._Z9RumbleEndv
+                0x02006c34       0x4c build/MontyHallDS/source/main.cpp.o
+                0x02006c34                RumbleEnd()
+ .text._Z9UnloadSFXv
+                0x02006c80       0x1c build/MontyHallDS/source/main.cpp.o
+                0x02006c80                UnloadSFX()
+ .text.startup.main
+                0x02006c9c      0x334 build/MontyHallDS/source/main.cpp.o
+                0x02006c9c                main
+ .text._Z17MontyHallSimuPgrmi
+                0x02006fd0      0x468 build/MontyHallDS/source/simu.cpp.o
+                0x02006fd0                MontyHallSimuPgrm(int)
+ .text._Z17MontyHallSimuFastv
+                0x02007438      0x118 build/MontyHallDS/source/simu.cpp.o
+                0x02007438                MontyHallSimuFast()
+ .text._Z20MontyHallSimuResultsv
+                0x02007550      0x158 build/MontyHallDS/source/simu.cpp.o
+                0x02007550                MontyHallSimuResults()
+ .text._Z17SimulateMontyHallv
+                0x020076a8      0x398 build/MontyHallDS/source/simu.cpp.o
+                0x020076a8                SimulateMontyHall()
+ .text._Z5Titlev
+                0x02007a40      0x214 build/MontyHallDS/source/title.cpp.o
+                0x02007a40                Title()
  .text.NF_Set2D
-                0x02009734       0x64 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
-                0x02009734                NF_Set2D
+                0x02007c54       0x64 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                0x02007c54                NF_Set2D
  .text.NF_ShowBg
-                0x02009798       0x74 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
-                0x02009798                NF_ShowBg
+                0x02007cb8       0x74 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                0x02007cb8                NF_ShowBg
  .text.NF_HideBg
-                0x0200980c       0x9c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
-                0x0200980c                NF_HideBg
+                0x02007d2c       0x9c /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                0x02007d2c                NF_HideBg
  .text.NF_ScrollBg
-                0x020098a8      0x2fc /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
-                0x020098a8                NF_ScrollBg
+                0x02007dc8      0x2fc /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                0x02007dc8                NF_ScrollBg
+ .text.NF_Error
+                0x020080c4      0x2d8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x020080c4                NF_Error
+ .text.NF_SetRootFolder
+                0x0200839c      0x1dc /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x0200839c                NF_SetRootFolder
+ .text.NF_DmaMemCopy
+                0x02008578       0x7c /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x02008578                NF_DmaMemCopy
+ .text.NF_FileLoad
+                0x020085f4       0xac /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x020085f4                NF_FileLoad
+ .text.NF_InitSpriteBuffers
+                0x020086a0       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x020086a0                NF_InitSpriteBuffers
+ .text.NF_InitSpriteSys
+                0x020086fc      0x204 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x020086fc                NF_InitSpriteSys
+ .text.NF_LoadSpriteGfx
+                0x02008900       0x98 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008900                NF_LoadSpriteGfx
+ .text.NF_LoadSpritePal
+                0x02008998       0x80 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008998                NF_LoadSpritePal
+ .text.NF_VramSpriteGfx
+                0x02008a18      0x298 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008a18                NF_VramSpriteGfx
+ .text.NF_VramSpritePal
+                0x02008cb0       0xb0 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008cb0                NF_VramSpritePal
+ .text.NF_CreateSprite
+                0x02008d60      0x1c8 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008d60                NF_CreateSprite
+ .text.NF_DeleteSprite
+                0x02008f28       0x80 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008f28                NF_DeleteSprite
+ .text.NF_SpriteOamSet
+                0x02008fa8       0xc4 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02008fa8                NF_SpriteOamSet
+ .text.NF_InitTiledBgBuffers
+                0x0200906c       0x94 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0200906c                NF_InitTiledBgBuffers
+ .text.NF_InitTiledBgSys
+                0x02009100      0x164 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x02009100                NF_InitTiledBgSys
+ .text.NF_LoadTiledBg
+                0x02009264      0x1ac /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x02009264                NF_LoadTiledBg
+ .text.NF_UnloadTiledBg
+                0x02009410       0x9c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x02009410                NF_UnloadTiledBg
+ .text.NF_DeleteTiledBg
+                0x020094ac      0x18c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x020094ac                NF_DeleteTiledBg
+ .text.NF_CreateTiledBg
+                0x02009638      0x56c /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x02009638                NF_CreateTiledBg
  .text.swiWaitForVBlank
                 0x02009ba4        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
                 0x02009ba4                swiWaitForVBlank
@@ -2773,10 +2773,10 @@ Linker script and memory map
  .fini          0x02016048        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/crtn.o
                 0x02016050                        __text_end = .
 
-.rodata         0x02016050     0x23f0
+.rodata         0x02016050     0x23ec
  *(EXCLUDE_FILE(*.twl*) .rodata)
- .rodata        0x02016050       0x6c build/MontyHallDS/source/simu.cpp.o
- .rodata        0x020160bc       0x18 build/MontyHallDS/source/game.cpp.o
+ .rodata        0x02016050       0x18 build/MontyHallDS/source/game.cpp.o
+ .rodata        0x02016068       0x6c build/MontyHallDS/source/simu.cpp.o
  .rodata        0x020160d4       0x90 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata        0x02016164       0x14 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
  .rodata        0x02016178       0x18 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_month_lengths.c.o)
@@ -2787,290 +2787,290 @@ Linker script and memory map
  *all.rodata*(*)
  *(EXCLUDE_FILE(*.twl*) .roda)
  *(EXCLUDE_FILE(*.twl*) .rodata.*)
- .rodata._Z11LoadSpritesv.str1.4
-                0x020164d8      0xb39 build/MontyHallDS/source/main.cpp.o
-                                0x153 (size before relaxing)
- .rodata.main.str1.4
-                0x02017011      0x13c build/MontyHallDS/source/main.cpp.o
- .rodata._Z17MontyHallSimuPgrmi.str1.4
-                0x02017011       0x48 build/MontyHallDS/source/simu.cpp.o
- .rodata._Z17SimulateMontyHallv.str1.4
-                0x02017011       0x78 build/MontyHallDS/source/simu.cpp.o
  .rodata._Z13PlayMontyHallv.str1.4
-                0x02017011       0xb0 build/MontyHallDS/source/game.cpp.o
+                0x020164d8      0xb35 build/MontyHallDS/source/game.cpp.o
+                                 0xb0 (size before relaxing)
+ .rodata._Z11LoadSpritesv.str1.4
+                0x0201700d      0x153 build/MontyHallDS/source/main.cpp.o
+ .rodata.main.str1.4
+                0x0201700d      0x13c build/MontyHallDS/source/main.cpp.o
+ .rodata._Z17MontyHallSimuPgrmi.str1.4
+                0x0201700d       0x48 build/MontyHallDS/source/simu.cpp.o
+ .rodata._Z17SimulateMontyHallv.str1.4
+                0x0201700d       0x78 build/MontyHallDS/source/simu.cpp.o
  .rodata.NF_Error.str1.4
-                0x02017011      0x408 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
- *fill*         0x02017011        0x3 ff
+                0x0201700d      0x404 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+ *fill*         0x0201700d        0x3 ff
  .rodata.NF_Error
-                0x02017014       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x02017010       0x5c /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .rodata.NF_SetRootFolder.str1.4
-                0x02017070      0x25a /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x0201706c      0x25a /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .rodata.NF_FileLoad.str1.4
-                0x02017070        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x0201706c        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .rodata.NF_LoadSpriteGfx.str1.4
-                0x02017070       0x1a /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c       0x1a /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_LoadSpritePal.str1.4
-                0x02017070       0x1a /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c       0x1a /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_VramSpriteGfx.str1.4
-                0x02017070       0x20 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c       0x20 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_VramSpritePal.str1.4
-                0x02017070       0x14 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c       0x14 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_CreateSprite.str1.4
-                0x02017070       0x18 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c       0x18 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_DeleteSprite.str1.4
-                0x02017070        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201706c        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .rodata.NF_InitTiledBgBuffers.str1.4
-                0x02017070        0xd /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201706c        0xd /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
  .rodata.NF_LoadTiledBg.str1.4
-                0x02017070       0x37 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201706c       0x37 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
  .rodata.NF_DeleteTiledBg.str1.4
-                0x02017070        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201706c        0x3 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
  .rodata.releaseCrashHandler.str1.4
-                0x02017070       0x33 /opt/blocksds/core/libs/libnds/lib/libnds9.a(gurumeditation.c.o)
+                0x0201706c       0x33 /opt/blocksds/core/libs/libnds/lib/libnds9.a(gurumeditation.c.o)
  .rodata.ez_rumble_table
-                0x02017070        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(rumble.c.o)
+                0x0201706c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(rumble.c.o)
  .rodata.definitions
-                0x02017074      0x120 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
+                0x02017070      0x120 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
  .rodata.con_write
-                0x02017194      0x118 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+                0x02017190      0x118 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
  .rodata.SIN_LUT
-                0x020172ac      0x102 /opt/blocksds/core/libs/libnds/lib/libnds9.a(trig.c.o)
-                0x020172ac                SIN_LUT
- *fill*         0x020173ae        0x2 ff
+                0x020172a8      0x102 /opt/blocksds/core/libs/libnds/lib/libnds9.a(trig.c.o)
+                0x020172a8                SIN_LUT
+ *fill*         0x020173aa        0x2 ff
  .rodata.CSWTCH.24
-                0x020173b0        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(filesystem.c.o)
+                0x020173ac        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(filesystem.c.o)
  .rodata.fatGetDefaultCwd.str1.4
-                0x020173bc        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
+                0x020173b8        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
  .rodata.nitrofs_use_for_path.str1.4
-                0x020173bc        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
+                0x020173b8        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
  .rodata.nitroFSInit.str1.4
-                0x020173bc        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
+                0x020173b8        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
  .rodata.chdir.str1.4
-                0x020173bc        0xb /opt/blocksds/core/libs/libnds/lib/libnds9.a(chdir.c.o)
+                0x020173b8        0xb /opt/blocksds/core/libs/libnds/lib/libnds9.a(chdir.c.o)
  .rodata.stderr
-                0x020173bc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
-                0x020173bc                stderr
+                0x020173b8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020173b8                stderr
  .rodata.stdout
-                0x020173c0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
-                0x020173c0                stdout
- .rodata.stdin  0x020173c4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
-                0x020173c4                stdin
+                0x020173bc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020173bc                stdout
+ .rodata.stdin  0x020173c0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020173c0                stdin
  .rodata.get_ldnumber.str1.4
-                0x020173c8        0x7 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+                0x020173c4        0x7 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
  .rodata.follow_path.str1.4
-                0x020173c8       0x13 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+                0x020173c4       0x13 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
  .rodata.check_fs.str1.4
-                0x020173c8        0x9 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
- .rodata.ExCvt  0x020173c8       0x80 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+                0x020173c4        0x9 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+ .rodata.ExCvt  0x020173c4       0x80 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
  .rodata.LfnOfs
-                0x02017448        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
- *fill*         0x02017455        0x3 ff
+                0x02017444        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+ *fill*         0x02017451        0x3 ff
  .rodata.ff_wtoupper
-                0x02017458       0x24 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
+                0x02017454       0x24 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
  .rodata.cvt2.0
-                0x0201747c       0xbc /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
+                0x02017478       0xbc /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
  .rodata.cvt1.1
-                0x02017538      0x1f2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
- *fill*         0x0201772a        0x2 ff
- .rodata.uc437  0x0201772c      0x100 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
+                0x02017534      0x1f2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
+ *fill*         0x02017726        0x2 ff
+ .rodata.uc437  0x02017728      0x100 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffunicode.c.o)
  .rodata.default_fontTiles
-                0x0201782c      0x300 /opt/blocksds/core/libs/libnds/lib/libnds9.a(default_font.png.o)
-                0x0201782c                default_fontTiles
+                0x02017828      0x300 /opt/blocksds/core/libs/libnds/lib/libnds9.a(default_font.png.o)
+                0x02017828                default_fontTiles
  .rodata.bgTransform
-                0x02017b2c       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
-                0x02017b2c                bgTransform
+                0x02017b28       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
+                0x02017b28                bgTransform
  .rodata.bgScrollTable
-                0x02017b4c       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
-                0x02017b4c                bgScrollTable
+                0x02017b48       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
+                0x02017b48                bgScrollTable
  .rodata.bgControl
-                0x02017b6c       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
-                0x02017b6c                bgControl
+                0x02017b68       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
+                0x02017b68                bgControl
  .rodata.__retarget_lock_init_recursive.str1.4
-                0x02017b8c        0xa /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
+                0x02017b88        0xa /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
  .rodata.__retarget_lock_close_recursive.str1.4
-                0x02017b8c        0xb /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
+                0x02017b88        0xb /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
  .rodata.__retarget_lock_release_recursive.str1.4
-                0x02017b8c        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
+                0x02017b88        0xd /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
  .rodata.str1.1
-                0x02017b8c      0x8b2 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzset.c.o)
+                0x02017b88      0x8b2 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzset.c.o)
                                  0x61 (size before relaxing)
  .rodata.str1.1
-                0x0201843e        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
+                0x0201843a        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
  .rodata.str1.1
-                0x0201843e        0x9 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_perror.c.o)
+                0x0201843a        0x9 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_perror.c.o)
  .rodata.str1.1
-                0x0201843e        0xf /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfprintf.c.o)
+                0x0201843a        0xf /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfprintf.c.o)
  .rodata.str1.1
-                0x0201843e       0x15 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfscanf.c.o)
+                0x0201843a       0x15 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_tinystdio_vfscanf.c.o)
  .rodata.str1.1
-                0x0201843e      0x838 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_string_strerror.c.o)
+                0x0201843a      0x838 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_string_strerror.c.o)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.r*)
-                0x02018c78                        . = ALIGN (0x4)
- *fill*         0x0201843e        0x2 ff
+                0x02018c74                        . = ALIGN (0x4)
+ *fill*         0x0201843a        0x2 ff
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x02018440                        __exidx_start = .
+                0x0201843c                        __exidx_start = .
 
-ARM.exidx       0x02018440        0x8
+ARM.exidx       0x0201843c        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x02018440        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_udivmoddi4.o)
-                0x02018448                        __exidx_end = .
-                0x02018448                        . = ALIGN (0x4)
+ .ARM.exidx     0x0201843c        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/libgcc.a(_udivmoddi4.o)
+                0x02018444                        __exidx_end = .
+                0x02018444                        . = ALIGN (0x4)
 
-.preinit_array  0x02018448        0x0
-                0x02018448                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x02018444        0x0
+                0x02018444                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
-                0x02018448                        PROVIDE (__preinit_array_end = .)
+                0x02018444                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x02018448        0x0
-                0x02018448                        PROVIDE (__init_array_start = .)
+.init_array     0x02018444        0x0
+                0x02018444                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
-                0x02018448                        PROVIDE (__init_array_end = .)
+                0x02018444                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x02018448        0x0
-                0x02018448                        PROVIDE (__fini_array_start = .)
+.fini_array     0x02018444        0x0
+                0x02018444                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
-                0x02018448                        PROVIDE (__fini_array_end = .)
+                0x02018444                        PROVIDE (__fini_array_end = .)
 
-.ctors          0x02018448        0x0
+.ctors          0x02018444        0x0
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x02018448                        . = ALIGN (0x4)
+                0x02018444                        . = ALIGN (0x4)
 
-.dtors          0x02018448        0x0
+.dtors          0x02018444        0x0
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
+                0x02018444                        . = ALIGN (0x4)
+
+.eh_frame       0x02018444        0x4
+ *(.eh_frame)
+ .eh_frame      0x02018444        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/crtend.o
                 0x02018448                        . = ALIGN (0x4)
 
-.eh_frame       0x02018448        0x4
- *(.eh_frame)
- .eh_frame      0x02018448        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/thumb/arm946e-s/crtend.o
-                0x0201844c                        . = ALIGN (0x4)
-
 .gcc_except_table
-                0x0201844c        0x0
+                0x02018448        0x0
  *(.gcc_except_table .gcc_except_table.*)
-                0x0201844c                        . = ALIGN (0x4)
+                0x02018448                        . = ALIGN (0x4)
 
-.got            0x0201844c       0x10
+.got            0x02018448       0x10
  *(.got.plt)
- .got.plt       0x0201844c        0xc /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
-                0x0201844c                _GLOBAL_OFFSET_TABLE_
+ .got.plt       0x02018448        0xc /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
+                0x02018448                _GLOBAL_OFFSET_TABLE_
  *(.got)
- .got           0x02018458        0x4 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
+ .got           0x02018454        0x4 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
  *(.rel.got)
- .rel.got       0x0201845c        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
+ .rel.got       0x02018458        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.ewram          0x0201845c        0x0
-                0x0201845c                        __ewram_start = ABSOLUTE (.)
+.ewram          0x02018458        0x0
+                0x02018458                        __ewram_start = ABSOLUTE (.)
  *(.ewram)
  *ewram.*(.text)
-                0x0201845c                        . = ALIGN (0x4)
+                0x02018458                        . = ALIGN (0x4)
 
-.data           0x0201845c      0x4ec
-                0x0201845c                        __data_start = ABSOLUTE (.)
+.data           0x02018458      0x4e8
+                0x02018458                        __data_start = ABSOLUTE (.)
  *(EXCLUDE_FILE(*.twl*) .data)
- .data          0x0201845c       0x28 /opt/blocksds/core/libs/libnds/lib/libnds9.a(mpu_setup.s.o)
- .data          0x02018484      0x410 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(malloc-malloc.c.o)
-                0x02018484                __malloc_sbrk_base
-                0x02018488                __malloc_trim_threshold
-                0x0201848c                __malloc_av_
- .data          0x02018894        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
-                0x02018894                tzname
- .data          0x0201889c        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_environ.c.o)
-                0x0201889c                environ
+ .data          0x02018458       0x28 /opt/blocksds/core/libs/libnds/lib/libnds9.a(mpu_setup.s.o)
+ .data          0x02018480      0x410 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(malloc-malloc.c.o)
+                0x02018480                __malloc_sbrk_base
+                0x02018484                __malloc_trim_threshold
+                0x02018488                __malloc_av_
+ .data          0x02018890        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
+                0x02018890                tzname
+ .data          0x02018898        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_environ.c.o)
+                0x02018898                environ
  *(EXCLUDE_FILE(*.twl*) .data.*)
- .data.oamSub   0x020188a0       0x14 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
-                0x020188a0                oamSub
- .data.oamMain  0x020188b4       0x14 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
-                0x020188b4                oamMain
- .data.count    0x020188c8        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- .data.repeat   0x020188c9        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- .data.delay    0x020188ca        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- *fill*         0x020188cb        0x1 ff
+ .data.oamSub   0x0201889c       0x14 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
+                0x0201889c                oamSub
+ .data.oamMain  0x020188b0       0x14 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
+                0x020188b0                oamMain
+ .data.count    0x020188c4        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ .data.repeat   0x020188c5        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ .data.delay    0x020188c6        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ *fill*         0x020188c7        0x1 ff
  .data.latchedArm7Buttons
-                0x020188cc        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+                0x020188c8        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
  .data.receivedArm7Buttons
-                0x020188ce        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+                0x020188ca        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
  .data.slot2_device_id
-                0x020188d0        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
-                0x020188d0                slot2_device_id
+                0x020188cc        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
+                0x020188cc                slot2_device_id
  .data.firstConsoleInit.0
-                0x020188d2        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
- *fill*         0x020188d3        0x1 ff
+                0x020188ce        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+ *fill*         0x020188cf        0x1 ff
  .data.currentConsole
-                0x020188d4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+                0x020188d0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
  .data.__stderr
-                0x020188d8       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020188d4       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .data.__stdout
-                0x020188e8       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
- .data.__stdin  0x020188f8       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020188e4       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+ .data.__stdin  0x020188f4       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .data.dldi_mode
-                0x02018908        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(dldi.c.o)
- *fill*         0x02018909        0x7 ff
+                0x02018904        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(dldi.c.o)
+ *fill*         0x02018905        0x3 ff
  .data.__io_dldi_arm7_interface
-                0x02018910       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(dldi.c.o)
-                0x02018910                __io_dldi_arm7_interface
+                0x02018908       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(dldi.c.o)
+                0x02018908                __io_dldi_arm7_interface
  .data.fifo_freewords
-                0x02018930        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02018928        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .data.fifo_receive_queue
-                0x02018934        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x0201892c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .data.fifo_send_queue
-                0x02018938        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02018930        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .data.fifo_buffer_free
-                0x0201893c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
- .data.__tls    0x02018940        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
-                0x02018940                __tls
- .data.lastKey  0x02018944        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
-                0x02018944                lastKey
+                0x02018934        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+ .data.__tls    0x02018938        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
+                0x02018938                __tls
+ .data.lastKey  0x0201893c        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+                0x0201893c                lastKey
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.d*)
-                0x02018948                        . = ALIGN (0x4)
- *fill*         0x02018946        0x2 ff
+                0x02018940                        . = ALIGN (0x4)
+ *fill*         0x0201893e        0x2 ff
 
-.igot.plt       0x02018948        0x0
- .igot.plt      0x02018948        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
+.igot.plt       0x02018940        0x0
+ .igot.plt      0x02018940        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.tdata          0x02018948        0x8
-                0x02018948                        __tdata_start = ABSOLUTE (.)
+.tdata          0x02018940        0x8
+                0x02018940                        __tdata_start = ABSOLUTE (.)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
- .tdata         0x02018948        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_random.c.o)
-                0x02018948                _rand_next
-                0x02018950                        . = ALIGN (0x4)
-                0x02018950                        __tdata_end = ABSOLUTE (.)
-                0x02018950                        __data_end = .
+ .tdata         0x02018940        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_random.c.o)
+                0x02018940                _rand_next
+                0x02018948                        . = ALIGN (0x4)
+                0x02018948                        __tdata_end = ABSOLUTE (.)
+                0x02018948                        __data_end = .
                 0x00000008                        __tdata_size = (__tdata_end - __tdata_start)
 
-.tbss           0x02018950       0x28
-                0x02018950                        __tbss_start = ABSOLUTE (.)
+.tbss           0x02018948       0x28
+                0x02018948                        __tbss_start = ABSOLUTE (.)
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
- .tbss          0x02018950        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_errno_errno.c.o)
-                0x02018950                errno
- .tbss          0x02018954       0x24 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_lcltime_buf.c.o)
-                0x02018954                _localtime_buf
+ .tbss          0x02018948        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_errno_errno.c.o)
+                0x02018948                errno
+ .tbss          0x0201894c       0x24 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_lcltime_buf.c.o)
+                0x0201894c                _localtime_buf
  *(.tcommon)
-                0x02018978                        . = ALIGN (0x4)
-                0x02018978                        __tbss_end = ABSOLUTE (.)
+                0x02018970                        . = ALIGN (0x4)
+                0x02018970                        __tbss_end = ABSOLUTE (.)
                 0x00000028                        __tbss_size = (__tbss_end - __tbss_start)
-                0x02018950                        __bss_vma = .
+                0x02018948                        __bss_vma = .
 
-.dtcm           0x02ff0000        0x0 load address 0x02018950
-                0x02018950                        __dtcm_lma = LOADADDR (.dtcm)
+.dtcm           0x02ff0000        0x0 load address 0x02018948
+                0x02018948                        __dtcm_lma = LOADADDR (.dtcm)
  *(.dtcm)
  *(.dtcm.*)
                 0x02ff0000                        . = ALIGN (0x4)
                 0x02ff0000                        __dtcm_end = ABSOLUTE (.)
 
-.itcm           0x01000000      0x258 load address 0x02018950
-                0x02018950                        __itcm_lma = LOADADDR (.itcm)
+.itcm           0x01000000      0x258 load address 0x02018948
+                0x02018948                        __itcm_lma = LOADADDR (.itcm)
                 0x01000000                        __itcm_start = ABSOLUTE (.)
  *(.vectors .vectors.*)
  *(.itcm)
@@ -3103,401 +3103,401 @@ ARM.exidx       0x02018440        0x8
                 0x02ff0004                        . = ALIGN (0x4)
                 0x02ff0004                        __sbss_end = ABSOLUTE (.)
 
-.bss            0x02018950     0x8874
-                0x02018950                        __bss_start = ABSOLUTE (.)
-                0x02018950                        __bss_start__ = ABSOLUTE (.)
+.bss            0x02018948     0x8874
+                0x02018948                        __bss_start = ABSOLUTE (.)
+                0x02018948                        __bss_start__ = ABSOLUTE (.)
  *(EXCLUDE_FILE(*.twl*) .dynbss)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.b*)
  *(EXCLUDE_FILE(*.twl*) .bss*)
- .bss.Stylus    0x02018950        0xc build/MontyHallDS/source/main.cpp.o
-                0x02018950                Stylus
+ .bss.Stylus    0x02018948        0xc build/MontyHallDS/source/main.cpp.o
+                0x02018948                Stylus
  .bss.intensity
-                0x0201895c        0x1 build/MontyHallDS/source/main.cpp.o
-                0x0201895c                intensity
- .bss.rumble    0x0201895d        0x1 build/MontyHallDS/source/main.cpp.o
-                0x0201895d                rumble
- *fill*         0x0201895e        0x2 
- .bss.strategy  0x02018960        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018960                strategy
+                0x02018954        0x1 build/MontyHallDS/source/main.cpp.o
+                0x02018954                intensity
+ .bss.rumble    0x02018955        0x1 build/MontyHallDS/source/main.cpp.o
+                0x02018955                rumble
+ *fill*         0x02018956        0x2 
+ .bss.strategy  0x02018958        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018958                strategy
  .bss.ChangeLoses
-                0x02018964        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018964                ChangeLoses
+                0x0201895c        0x4 build/MontyHallDS/source/main.cpp.o
+                0x0201895c                ChangeLoses
  .bss.ChangeWins
-                0x02018968        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018968                ChangeWins
+                0x02018960        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018960                ChangeWins
  .bss.StayLoses
-                0x0201896c        0x4 build/MontyHallDS/source/main.cpp.o
-                0x0201896c                StayLoses
- .bss.StayWins  0x02018970        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018970                StayWins
+                0x02018964        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018964                StayLoses
+ .bss.StayWins  0x02018968        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018968                StayWins
  .bss.StayStrategy
-                0x02018974        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018974                StayStrategy
+                0x0201896c        0x4 build/MontyHallDS/source/main.cpp.o
+                0x0201896c                StayStrategy
  .bss.ChangeStrategy
-                0x02018978        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018978                ChangeStrategy
+                0x02018970        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018970                ChangeStrategy
  .bss.WrongDoor
-                0x0201897c        0x4 build/MontyHallDS/source/main.cpp.o
-                0x0201897c                WrongDoor
+                0x02018974        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018974                WrongDoor
  .bss.ChosenDoorCopy
-                0x02018980        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018980                ChosenDoorCopy
+                0x02018978        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018978                ChosenDoorCopy
  .bss.ChosenDoor
-                0x02018984        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018984                ChosenDoor
- .bss.CarDoor   0x02018988        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018988                CarDoor
- .bss.quit      0x0201898c        0x4 build/MontyHallDS/source/main.cpp.o
-                0x0201898c                quit
- .bss.game      0x02018990        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018990                game
- .bss.option    0x02018994        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018994                option
+                0x0201897c        0x4 build/MontyHallDS/source/main.cpp.o
+                0x0201897c                ChosenDoor
+ .bss.CarDoor   0x02018980        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018980                CarDoor
+ .bss.quit      0x02018984        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018984                quit
+ .bss.game      0x02018988        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018988                game
+ .bss.option    0x0201898c        0x4 build/MontyHallDS/source/main.cpp.o
+                0x0201898c                option
  .bss.arrowposy
-                0x02018998        0x4 build/MontyHallDS/source/main.cpp.o
-                0x02018998                arrowposy
+                0x02018990        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018990                arrowposy
  .bss.arrowposx
-                0x0201899c        0x4 build/MontyHallDS/source/main.cpp.o
-                0x0201899c                arrowposx
+                0x02018994        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018994                arrowposx
  .bss.select_hold
-                0x020189a0        0x4 build/MontyHallDS/source/main.cpp.o
-                0x020189a0                select_hold
- .bss           0x020189a4       0x19 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_main9.s.o)
-                0x020189a4                mmcbMemory
-                0x020189a8                mmModuleCount
-                0x020189ac                mmSampleCount
-                0x020189b0                mmModuleBank
-                0x020189b0                mmMemoryBank
-                0x020189b4                mmSampleBank
-                0x020189b8                mmCallback
-                0x020189bc                mmActiveStatus
- *fill*         0x020189bd        0x3 
- .bss           0x020189c0       0x18 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_comms.s.o)
- .bss           0x020189d8       0x44 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_soundbank.s.o)
+                0x02018998        0x4 build/MontyHallDS/source/main.cpp.o
+                0x02018998                select_hold
+ .bss           0x0201899c       0x19 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_main9.s.o)
+                0x0201899c                mmcbMemory
+                0x020189a0                mmModuleCount
+                0x020189a4                mmSampleCount
+                0x020189a8                mmModuleBank
+                0x020189a8                mmMemoryBank
+                0x020189ac                mmSampleBank
+                0x020189b0                mmCallback
+                0x020189b4                mmActiveStatus
+ *fill*         0x020189b5        0x3 
+ .bss           0x020189b8       0x18 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_comms.s.o)
+ .bss           0x020189d0       0x44 /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_soundbank.s.o)
  .bss.NF_ROOTFOLDER
-                0x02018a1c       0x40 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
-                0x02018a1c                NF_ROOTFOLDER
+                0x02018a14       0x40 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x02018a14                NF_ROOTFOLDER
  .bss.NF_SPRVRAM
-                0x02018a5c      0x838 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02018a5c                NF_SPRVRAM
- *fill*         0x02019294        0x4 
+                0x02018a54      0x838 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02018a54                NF_SPRVRAM
+ *fill*         0x0201928c        0x4 
  .bss.NF_SPRITEOAM
-                0x02019298     0x2400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x02019298                NF_SPRITEOAM
+                0x02019290     0x2400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x02019290                NF_SPRITEOAM
  .bss.NF_SPRPALSLOT
-                0x0201b698       0x40 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201b698                NF_SPRPALSLOT
+                0x0201b690       0x40 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201b690                NF_SPRPALSLOT
  .bss.NF_SPR256VRAM
-                0x0201b6d8     0x1400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201b6d8                NF_SPR256VRAM
+                0x0201b6d0     0x1400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201b6d0                NF_SPR256VRAM
  .bss.NF_SPR256PAL
-                0x0201cad8      0x200 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201cad8                NF_SPR256PAL
+                0x0201cad0      0x200 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201cad0                NF_SPR256PAL
  .bss.NF_SPR256GFX
-                0x0201ccd8      0xc00 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201ccd8                NF_SPR256GFX
+                0x0201ccd0      0xc00 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201ccd0                NF_SPR256GFX
  .bss.NF_BUFFER_SPR256PAL
-                0x0201d8d8      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201d8d8                NF_BUFFER_SPR256PAL
+                0x0201d8d0      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201d8d0                NF_BUFFER_SPR256PAL
  .bss.NF_BUFFER_SPR256GFX
-                0x0201d9d8      0x400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
-                0x0201d9d8                NF_BUFFER_SPR256GFX
+                0x0201d9d0      0x400 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0201d9d0                NF_BUFFER_SPR256GFX
  .bss.NF_MAPBLOCKS
-                0x0201ddd8       0x20 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201ddd8                NF_MAPBLOCKS
+                0x0201ddd0       0x20 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201ddd0                NF_MAPBLOCKS
  .bss.NF_TILEBLOCKS
-                0x0201ddf8       0x10 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201ddf8                NF_TILEBLOCKS
+                0x0201ddf0       0x10 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201ddf0                NF_TILEBLOCKS
  .bss.NF_EXBGPAL
-                0x0201de08      0x600 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201de08                NF_EXBGPAL
+                0x0201de00      0x600 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201de00                NF_EXBGPAL
  .bss.NF_TILEDBG_LAYERS
-                0x0201e408       0x90 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201e408                NF_TILEDBG_LAYERS
+                0x0201e400       0x90 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201e400                NF_TILEDBG_LAYERS
  .bss.NF_TILEDBG
-                0x0201e498      0xd00 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201e498                NF_TILEDBG
+                0x0201e490      0xd00 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201e490                NF_TILEDBG
  .bss.NF_BUFFER_BGPAL
-                0x0201f198      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201f198                NF_BUFFER_BGPAL
+                0x0201f190      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201f190                NF_BUFFER_BGPAL
  .bss.NF_BUFFER_BGMAP
-                0x0201f298      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201f298                NF_BUFFER_BGMAP
+                0x0201f290      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201f290                NF_BUFFER_BGMAP
  .bss.NF_BUFFER_BGTILES
-                0x0201f398      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201f398                NF_BUFFER_BGTILES
+                0x0201f390      0x100 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201f390                NF_BUFFER_BGTILES
  .bss.NF_BANKS_MAPS
-                0x0201f498        0x2 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201f498                NF_BANKS_MAPS
- *fill*         0x0201f49a        0x2 
+                0x0201f490        0x2 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201f490                NF_BANKS_MAPS
+ *fill*         0x0201f492        0x2 
  .bss.NF_BANKS_TILES
-                0x0201f49c        0x2 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
-                0x0201f49c                NF_BANKS_TILES
- *fill*         0x0201f49e        0x2 
+                0x0201f494        0x2 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x0201f494                NF_BANKS_TILES
+ *fill*         0x0201f496        0x2 
  .bss.OamMemory
-                0x0201f4a0      0x400 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
-                0x0201f4a0                OamMemory
+                0x0201f498      0x400 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
+                0x0201f498                OamMemory
  .bss.OamMemorySub
-                0x0201f8a0      0x400 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
-                0x0201f8a0                OamMemorySub
+                0x0201f898      0x400 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
+                0x0201f898                OamMemorySub
  .bss.keysrepeat
-                0x0201fca0        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- .bss.keysold   0x0201fca2        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- .bss.keys      0x0201fca4        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
- *fill*         0x0201fca6        0x2 
+                0x0201fc98        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ .bss.keysold   0x0201fc9a        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ .bss.keys      0x0201fc9c        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+ *fill*         0x0201fc9e        0x2 
  .bss.latchedTouchPosition
-                0x0201fca8        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+                0x0201fca0        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
  .bss.receivedTouchPosition
-                0x0201fcb4        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
+                0x0201fcac        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(keys.c.o)
  .bss.punixTime
-                0x0201fcc0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
-                0x0201fcc0                punixTime
+                0x0201fcb8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
+                0x0201fcb8                punixTime
  .bss.__debugger_unit
-                0x0201fcc4        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
-                0x0201fcc4                __debugger_unit
+                0x0201fcbc        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
+                0x0201fcbc                __debugger_unit
  .bss.__dsimode
-                0x0201fcc5        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
-                0x0201fcc5                __dsimode
- *fill*         0x0201fcc6        0x2 
+                0x0201fcbd        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(initSystem.c.o)
+                0x0201fcbd                __dsimode
+ *fill*         0x0201fcbe        0x2 
  .bss.exceptionMsg
-                0x0201fcc8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(gurumeditation.c.o)
-                0x0201fcc8                exceptionMsg
+                0x0201fcc0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(gurumeditation.c.o)
+                0x0201fcc0                exceptionMsg
  .bss.slot2_extram_banks
-                0x0201fccc        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
-                0x0201fccc                slot2_extram_banks
- *fill*         0x0201fcce        0x2 
+                0x0201fcc4        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
+                0x0201fcc4                slot2_extram_banks
+ *fill*         0x0201fcc6        0x2 
  .bss.slot2_extram_size
-                0x0201fcd0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
-                0x0201fcd0                slot2_extram_size
+                0x0201fcc8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
+                0x0201fcc8                slot2_extram_size
  .bss.slot2_extram_start
-                0x0201fcd4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
-                0x0201fcd4                slot2_extram_start
+                0x0201fccc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.c.o)
+                0x0201fccc                slot2_extram_start
  .bss.libnds_stderr_write
-                0x0201fcd8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
-                0x0201fcd8                libnds_stderr_write
+                0x0201fcd0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+                0x0201fcd0                libnds_stderr_write
  .bss.libnds_stdout_write
-                0x0201fcdc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
-                0x0201fcdc                libnds_stdout_write
+                0x0201fcd4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+                0x0201fcd4                libnds_stdout_write
  .bss.currentCopy
-                0x0201fce0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
+                0x0201fcd8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(console.c.o)
  .bss.current_drive_is_nitrofs
-                0x0201fd20        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(filesystem.c.o)
-                0x0201fd20                current_drive_is_nitrofs
+                0x0201fd18        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(filesystem.c.o)
+                0x0201fd18                current_drive_is_nitrofs
  .bss.has_been_called.0
-                0x0201fd21        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
+                0x0201fd19        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
  .bss.fat_initialized
-                0x0201fd22        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
- *fill*         0x0201fd23        0x1 
- .bss.fs_info   0x0201fd24      0x478 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
+                0x0201fd1a        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
+ *fill*         0x0201fd1b        0x1 
+ .bss.fs_info   0x0201fd1c      0x478 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fatfs.c.o)
  .bss.usage_counter
-                0x0202019c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
+                0x02020194        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
  .bss.dldi_stub_space_sectors
-                0x020201a0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
+                0x02020198        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
  .bss.cache_num_sectors
-                0x020201a4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
+                0x0202019c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
  .bss.cache_mem
-                0x020201a8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
+                0x020201a0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
  .bss.cache_entries
-                0x020201ac        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
+                0x020201a4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(cache.c.o)
  .bss.nitrofs_local
-                0x020201b0       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
- .bss.shown.0   0x020201c0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201a8       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(nitrofs.c.o)
+ .bss.shown.0   0x020201b8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.stderr_buf_len
-                0x020201c4        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201bc        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.stdout_buf_len
-                0x020201c6        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201be        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.stderr_buf
-                0x020201c8       0x11 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
- *fill*         0x020201d9        0x3 
+                0x020201c0       0x11 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+ *fill*         0x020201d1        0x3 
  .bss.stdout_buf
-                0x020201dc       0x11 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201d4       0x11 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.stdin_buf_empty
-                0x020201ed        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
-                0x020201ed                stdin_buf_empty
+                0x020201e5        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201e5                stdin_buf_empty
  .bss.stdin_buf_right
-                0x020201ee        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201e6        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.stdin_buf_left
-                0x020201f0        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
- *fill*         0x020201f2        0x2 
+                0x020201e8        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+ *fill*         0x020201ea        0x2 
  .bss.stdin_buf
-                0x020201f4       0x80 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
+                0x020201ec       0x80 /opt/blocksds/core/libs/libnds/lib/libnds9.a(iob.c.o)
  .bss.fifo_mutex
-                0x02020274       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x0202026c       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.processing
-                0x020202b4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020202ac        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_datamsg_data
-                0x020202b8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020202b0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_data
-                0x020202f8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020202f0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_address_data
-                0x02020338       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02020330       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_datamsg_func
-                0x02020378       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02020370       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_func
-                0x020203b8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020203b0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_address_func
-                0x020203f8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020203f0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_value32_queue
-                0x02020438       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02020430       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_data_queue
-                0x02020478       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x02020470       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_address_queue
-                0x020204b8       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020204b0       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.fifo_buffer
-                0x020204f8      0x800 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
+                0x020204f0      0x800 /opt/blocksds/core/libs/libnds/lib/libnds9.a(fifosystem.c.o)
  .bss.heap_start.0
-                0x02020cf8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
+                0x02020cf0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
  .bss.fake_heap_start
-                0x02020cfc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
-                0x02020cfc                fake_heap_start
+                0x02020cf4        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
+                0x02020cf4                fake_heap_start
  .bss.fake_heap_end
-                0x02020d00        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
-                0x02020d00                fake_heap_end
+                0x02020cf8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sbrk.c.o)
+                0x02020cf8                fake_heap_end
  .bss.main_args
-                0x02020d04        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
+                0x02020cfc        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
  .bss.cothread_list
-                0x02020d0c       0x1c /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
+                0x02020d04       0x1c /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
  .bss.cothread_active_thread
-                0x02020d28        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
- .bss.free_fn   0x02020d2c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
- .bss.CurrVol   0x02020d30        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
- *fill*         0x02020d31        0x1 
- .bss.Fsid      0x02020d32        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
- .bss.FatFs     0x02020d34        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+                0x02020d20        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
+ .bss.free_fn   0x02020d24        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(threads.c.o)
+ .bss.CurrVol   0x02020d28        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+ *fill*         0x02020d29        0x1 
+ .bss.Fsid      0x02020d2a        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
+ .bss.FatFs     0x02020d2c        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(ff.c.o)
  .bss.bgIsTextLut
-                0x02020d3c        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
-                0x02020d3c                bgIsTextLut
- .bss.bgState   0x02020d44      0x140 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
-                0x02020d44                bgState
+                0x02020d34        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
+                0x02020d34                bgIsTextLut
+ .bss.bgState   0x02020d3c      0x140 /opt/blocksds/core/libs/libnds/lib/libnds9.a(background.c.o)
+                0x02020d3c                bgState
  .bss.SDcallback
-                0x02020e84        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(system.c.o)
+                0x02020e7c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(system.c.o)
  .bss.pressed.0
-                0x02020e88        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+                0x02020e80        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
  .bss.oldKeys.1
-                0x02020e8c        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+                0x02020e84        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
  .bss.curKeyboard
-                0x02020e90       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+                0x02020e88       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
  .bss.curKeyboardOriginal
-                0x02020ed0        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+                0x02020ec8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
  .bss.keyboardLoaded
-                0x02020ed4        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
- *fill*         0x02020ed5        0x3 
- .bss.Mutex     0x02020ed8        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffsystem.c.o)
- .bss.fs_io     0x02020ee4        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(diskio.c.o)
+                0x02020ecc        0x1 /opt/blocksds/core/libs/libnds/lib/libnds9.a(keyboard.c.o)
+ *fill*         0x02020ecd        0x3 
+ .bss.Mutex     0x02020ed0        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(ffsystem.c.o)
+ .bss.fs_io     0x02020edc        0x8 /opt/blocksds/core/libs/libnds/lib/libnds9.a(diskio.c.o)
  .bss.fs_initialized
-                0x02020eec        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(diskio.c.o)
- *fill*         0x02020eee        0x2 
+                0x02020ee4        0x2 /opt/blocksds/core/libs/libnds/lib/libnds9.a(diskio.c.o)
+ *fill*         0x02020ee6        0x2 
  .bss.__lock___libc_recursive_mutex
-                0x02020ef0       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
-                0x02020ef0                __lock___libc_recursive_mutex
- .bss.locks     0x02020f00      0x210 /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
- .bss           0x02021110       0x34 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(malloc-malloc.c.o)
-                0x02021110                __malloc_top_pad
-                0x02021114                __malloc_current_mallinfo
-                0x0202113c                __malloc_max_sbrked_mem
-                0x02021140                __malloc_max_total_mem
- .bss           0x02021144       0x18 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzset.c.o)
- .bss           0x0202115c        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
-                0x0202115c                _timezone
-                0x02021160                _daylight
- *fill*         0x02021164        0x4 
- .bss           0x02021168       0x58 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_gettzinfo.c.o)
- .bss           0x020211c0        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_environ.c.o)
+                0x02020ee8       0x10 /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
+                0x02020ee8                __lock___libc_recursive_mutex
+ .bss.locks     0x02020ef8      0x210 /opt/blocksds/core/libs/libnds/lib/libnds9.a(locks.c.o)
+ .bss           0x02021108       0x34 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(malloc-malloc.c.o)
+                0x02021108                __malloc_top_pad
+                0x0202110c                __malloc_current_mallinfo
+                0x02021134                __malloc_max_sbrked_mem
+                0x02021138                __malloc_max_total_mem
+ .bss           0x0202113c       0x18 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzset.c.o)
+ .bss           0x02021154        0x8 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_tzvars.c.o)
+                0x02021154                _timezone
+                0x02021158                _daylight
+ *fill*         0x0202115c        0x4 
+ .bss           0x02021160       0x58 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_time_gettzinfo.c.o)
+ .bss           0x020211b8        0x4 /opt/wonderful/toolchain/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.0/../../../../arm-none-eabi/lib/thumb/arm946e-s/libc.a(libc_stdlib_environ.c.o)
  *(EXCLUDE_FILE(*.twl*) COMMON)
-                0x020211c4                        . = ALIGN (0x4)
-                0x020211c4                        __bss_end__ = ABSOLUTE (.)
+                0x020211bc                        . = ALIGN (0x4)
+                0x020211bc                        __bss_end__ = ABSOLUTE (.)
 
-.noinit         0x020211c4        0x0
-                0x020211c4                        __noinit_start = ABSOLUTE (.)
+.noinit         0x020211bc        0x0
+                0x020211bc                        __noinit_start = ABSOLUTE (.)
  *(EXCLUDE_FILE(*.twl*) .noinit)
  *(EXCLUDE_FILE(*.twl*) .noinit.*)
  *(EXCLUDE_FILE(*.twl*) .gnu.linkonce.n.*)
-                0x020211c4                        . = ALIGN (0x4)
-                0x020211c4                        __noinit_end = ABSOLUTE (.)
+                0x020211bc                        . = ALIGN (0x4)
+                0x020211bc                        __noinit_end = ABSOLUTE (.)
 
-.tls            0x020211c4       0x30
-                0x020211c4                        __tls_start = ABSOLUTE (.)
-                0x020211f4                        . = ((. + __tdata_size) + __tbss_size)
- *fill*         0x020211c4       0x30 
-                0x020211f4                        __tls_end = ABSOLUTE (.)
-                0x020211f4                        __end__ = ABSOLUTE (.)
+.tls            0x020211bc       0x30
+                0x020211bc                        __tls_start = ABSOLUTE (.)
+                0x020211ec                        . = ((. + __tdata_size) + __tbss_size)
+ *fill*         0x020211bc       0x30 
+                0x020211ec                        __tls_end = ABSOLUTE (.)
+                0x020211ec                        __end__ = ABSOLUTE (.)
                 0x00000030                        __tls_size = (__tls_end - __tls_start)
 
-.twl            0x020211f4      0x234 load address 0x02400000
+.twl            0x020211ec      0x234 load address 0x02400000
                 0x02400000                        __arm9i_lma__ = LOADADDR (.twl)
-                0x020211f4                        __arm9i_start__ = ABSOLUTE (.)
+                0x020211ec                        __arm9i_start__ = ABSOLUTE (.)
  *(.twl)
  *(.twl.text .twl.text.*)
  *(.twl.rodata .twl.rodata.*)
  *(.twl.data .twl.data.*)
  *.twl*(.text .stub .text.* .gnu.linkonce.t.*)
  .text.slot2DetectTWLDebugRam
-                0x020211f4        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.twl.c.o)
-                0x020211f4                slot2DetectTWLDebugRam
+                0x020211ec        0xc /opt/blocksds/core/libs/libnds/lib/libnds9.a(slot2.twl.c.o)
+                0x020211ec                slot2DetectTWLDebugRam
  .text.sdmmc_ClearStatus
-                0x02021200        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x02021200                sdmmc_ClearStatus
+                0x020211f8        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x020211f8                sdmmc_ClearStatus
  .text.sdmmc_Shutdown
-                0x02021204        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x02021204                sdmmc_Shutdown
+                0x020211fc        0x4 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x020211fc                sdmmc_Shutdown
  .text.sdmmc_fifo_sectors
-                0x02021208       0x9c /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x02021200       0x9c /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
  .text.sdmmc_ReadSectors
-                0x020212a4       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x020212a4                sdmmc_ReadSectors
+                0x0202129c       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x0202129c                sdmmc_ReadSectors
  .text.sdmmc_WriteSectors
-                0x020212c4       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x020212c4                sdmmc_WriteSectors
+                0x020212bc       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x020212bc                sdmmc_WriteSectors
  .text.sdmmc_IsInserted
-                0x020212e4       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x020212e4                sdmmc_IsInserted
+                0x020212dc       0x40 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x020212dc                sdmmc_IsInserted
  .text.sdmmc_Startup
-                0x02021324       0x74 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x02021324                sdmmc_Startup
+                0x0202131c       0x74 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x0202131c                sdmmc_Startup
  .text.sdmmc_GetDiskStatus
-                0x02021398       0x38 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x02021398                sdmmc_GetDiskStatus
+                0x02021390       0x38 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x02021390                sdmmc_GetDiskStatus
  .text.get_io_dsisd
-                0x020213d0       0x24 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x020213d0                get_io_dsisd
- *fill*         0x020213f4        0x4 
+                0x020213c8       0x24 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x020213c8                get_io_dsisd
+ *fill*         0x020213ec        0x4 
  .text.get_io_dsisd.__stub
-                0x020213f8       0x10 linker stubs
+                0x020213f0       0x10 linker stubs
  *.twl*(.rodata)
  *.twl*(.roda)
  *.twl*(.rodata.*)
  .rodata.__io_dsisd
-                0x02021408       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
-                0x02021408                __io_dsisd
+                0x02021400       0x20 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sdmmc.twl.c.o)
+                0x02021400                __io_dsisd
  *.twl*(.data)
  *.twl*(.data.*)
  *.twl*(.gnu.linkonce.d*)
-                0x02021428                        __arm9i_end__ = ABSOLUTE (.)
+                0x02021420                        __arm9i_end__ = ABSOLUTE (.)
 
-.rel.dyn        0x02021428        0x0 load address 0x02400234
- .rel.iplt      0x02021428        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
+.rel.dyn        0x02021420        0x0 load address 0x02400234
+ .rel.iplt      0x02021420        0x0 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
 
-.twl_bss        0x02021428        0x0
-                0x02021428                        __twl_bss_start__ = ABSOLUTE (.)
+.twl_bss        0x02021420        0x0
+                0x02021420                        __twl_bss_start__ = ABSOLUTE (.)
  *(.twl_bss .twl_bss.*)
  *(.twl.bss .twl.bss.*)
  *.twl*(.dynbss)
  *.twl*(.gnu.linkonce.b*)
  *.twl*(.bss*)
  *.twl*(COMMON)
-                0x02021428                        . = ALIGN (0x4)
-                0x02021428                        __twl_bss_end__ = ABSOLUTE (.)
+                0x02021420                        . = ALIGN (0x4)
+                0x02021420                        __twl_bss_end__ = ABSOLUTE (.)
 
-.twl_noinit     0x02021428        0x0
-                0x02021428                        __twl_noinit_start__ = ABSOLUTE (.)
+.twl_noinit     0x02021420        0x0
+                0x02021420                        __twl_noinit_start__ = ABSOLUTE (.)
  *(.twl_noinit .twl_noinit.*)
  *(.twl.noinit .twl.noinit.*)
  *.twl*(.noinit)
  *.twl*(.noinit.*)
  *.twl*(.gnu.linkonce.n.*)
-                0x02021428                        . = ALIGN (0x4)
-                0x02021428                        __twl_noinit_end__ = ABSOLUTE (.)
-                0x02021428                        __twl_end__ = ABSOLUTE (.)
+                0x02021420                        . = ALIGN (0x4)
+                0x02021420                        __twl_noinit_end__ = ABSOLUTE (.)
+                0x02021420                        __twl_end__ = ABSOLUTE (.)
                 0x00000258                        __itcm_size = (__itcm_end - __itcm_start)
                 0x00000000                        __dtcm_size = (__dtcm_end - __dtcm_data_start)
                 0x00000234                        __arm9i_size__ = (__arm9i_end__ - __arm9i_start__)
@@ -3525,15 +3525,15 @@ ARM.exidx       0x02018440        0x8
 
 .comment        0x00000000       0x22
  *(.comment)
- .comment       0x00000000       0x22 build/MontyHallDS/source/title.cpp.o
+ .comment       0x00000000       0x22 build/MontyHallDS/source/game.cpp.o
                                  0x23 (size before relaxing)
  .comment       0x00000022       0x23 build/MontyHallDS/source/main.cpp.o
  .comment       0x00000022       0x23 build/MontyHallDS/source/simu.cpp.o
- .comment       0x00000022       0x23 build/MontyHallDS/source/game.cpp.o
+ .comment       0x00000022       0x23 build/MontyHallDS/source/title.cpp.o
+ .comment       0x00000022       0x23 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
- .comment       0x00000022       0x23 /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/core/libs/libnds/lib/libnds9.a(sprite_alloc.c.o)
  .comment       0x00000022       0x23 /opt/blocksds/core/libs/libnds/lib/libnds9.a(video.c.o)
@@ -4684,13 +4684,13 @@ ARM.exidx       0x02018440        0x8
  .ARM.attributes
                 0x00000000       0x21 /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
  .ARM.attributes
-                0x00000021       0x2b build/MontyHallDS/source/title.cpp.o
+                0x00000021       0x2b build/MontyHallDS/source/game.cpp.o
  .ARM.attributes
                 0x0000004c       0x2b build/MontyHallDS/source/main.cpp.o
  .ARM.attributes
                 0x00000077       0x2b build/MontyHallDS/source/simu.cpp.o
  .ARM.attributes
-                0x000000a2       0x2b build/MontyHallDS/source/game.cpp.o
+                0x000000a2       0x2b build/MontyHallDS/source/title.cpp.o
  .ARM.attributes
                 0x000000cd       0x1b /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_main9.s.o)
  .ARM.attributes
@@ -4702,13 +4702,13 @@ ARM.exidx       0x02018440        0x8
  .ARM.attributes
                 0x00000139       0x1b /opt/blocksds/core/libs/maxmod/lib/libmm9.a(mm_soundbank.s.o)
  .ARM.attributes
-                0x00000154       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
+                0x00000154       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
  .ARM.attributes
-                0x0000017f       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
+                0x0000017f       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_basic.c.o)
  .ARM.attributes
-                0x000001aa       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
+                0x000001aa       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_sprite256.c.o)
  .ARM.attributes
-                0x000001d5       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_2d.c.o)
+                0x000001d5       0x2b /opt/blocksds/external/nflib/lib/libnflib.a(nf_tiledbg.c.o)
  .ARM.attributes
                 0x00000200       0x21 /opt/blocksds/core/libs/libnds/lib/libnds9.a(IntrWait.s.o)
  .ARM.attributes
@@ -5048,10 +5048,10 @@ ARM.exidx       0x02018440        0x8
  *(.gnu.lto_*)
                 0x00000001                        ASSERT ((__sbss_end <= __dtcm_data_top), DTCM data overflow; increase __dtcm_data_size or move data out of DTCM)
 LOAD /opt/blocksds/core/sys/crts/ds_arm9_crt0.o
-LOAD build/MontyHallDS/source/title.cpp.o
+LOAD build/MontyHallDS/source/game.cpp.o
 LOAD build/MontyHallDS/source/main.cpp.o
 LOAD build/MontyHallDS/source/simu.cpp.o
-LOAD build/MontyHallDS/source/game.cpp.o
+LOAD build/MontyHallDS/source/title.cpp.o
 START GROUP
 LOAD /opt/blocksds/core/libs/maxmod/lib/libmm9.a
 LOAD /opt/blocksds/external/nflib/lib/libnflib.a
