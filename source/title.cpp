@@ -65,7 +65,16 @@ void Title(){
 		
 		if (option == 0) { //If you are selecting volume
 			
-			if (volume == 1
+			if (volume == 1) {
+				volume = 0;
+				soundDisable();
+			}
+			else {
+				volume = 1;
+				soundEnable();
+				mmLoadEffect(SFX_SELECT);
+				mmEffect(SFX_SELECT);
+			}
 			
 		}
 		else {
