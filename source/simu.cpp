@@ -295,7 +295,7 @@ void MontyHallSimuResults() {
 
 	for (int sprite=0; sprite<=3; sprite++) {
 		
-		number = (Variables[sprite] - (Variables[sprite] % 100)) / 100 + 20;	//Thousands
+		number = (Variables[sprite] - (Variables[sprite] % 100)) / 100 + 20;	//Hundreds
 		NF_CreateSprite(0, option + 1, number, 2, NumbersX[option], NumbersY[option]);
 		option +=1;
 		
