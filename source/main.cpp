@@ -28,6 +28,8 @@ int option;	//Used in many ways, like choosed option or sprite number calculator
 int game;	//Determines if exiting of the selecting loop (ex: titlescreen)
 int quit = 0;	//If you quit the game
 
+int blink; //Effect for the titlescreen buttons
+
 int CarDoor;	//Door where the car is
 int ChosenDoor;	//Door chosen by the player/computer
 int ChosenDoorCopy;	//Duplicate of ChosenDoor (for the changing part of the program)
@@ -40,6 +42,8 @@ int StayWins;	//Speaks by itself
 int StayLoses;	//Same
 int ChangeWins;	//I should put something random here instead of saying it speaks by itself too
 int ChangeLoses;	//How are you?
+
+int volume = 1;
 
 int strategy;	//Change or stay on choice
 
@@ -63,39 +67,27 @@ touchPosition Stylus;
 
 void LoadSprites() {
 	
-	NF_LoadSpritePal("sprites/Numbers", 2); //Numbers is the common palette for the numbers's graphics
+	NF_LoadSpriteGfx("sprites/numbers/1", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/2", 21, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/3", 22, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/4", 23, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/5", 24, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/6", 25, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/7", 26, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/8", 27, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/9", 28, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/10", 29, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/11", 30, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/12", 31, 16, 16); //Numbers are showing when you simulate 2000 games.
+
+	for (int sprite=1; sprite<=12; sprite++){
+
+		NF_VramSpriteGfx(0, sprite+19, sprite, true);
+	}
+	
+	NF_LoadSpritePal("sprites/numbers/Numbers", 2); //Numbers is the common palette for the numbers's graphics
 	NF_VramSpritePal(0, 2, 2);
 	
-	NF_LoadSpriteGfx("sprites/0", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_VramSpriteGfx(0, 20, 20, false); //Actually I could have just VRAMd them on slot 1 instead of 21. But I wanted at first to load them also on the bottom screen.
-	
-	NF_LoadSpriteGfx("sprites/1", 21, 16, 16);
-	NF_VramSpriteGfx(0, 21, 21, false);
-	
-	NF_LoadSpriteGfx("sprites/2", 22, 16, 16);
-	NF_VramSpriteGfx(0, 22, 22, false);
-	
-	NF_LoadSpriteGfx("sprites/3", 23, 16, 16);
-	NF_VramSpriteGfx(0, 23, 23, false);
-	
-	NF_LoadSpriteGfx("sprites/4", 24, 16, 16);
-	NF_VramSpriteGfx(0, 24, 24, false);
-	
-	NF_LoadSpriteGfx("sprites/5", 25, 16, 16);
-	NF_VramSpriteGfx(0, 25, 25, false);
-	
-	NF_LoadSpriteGfx("sprites/6", 26, 16, 16);
-	NF_VramSpriteGfx(0, 26, 26, false);
-	
-	NF_LoadSpriteGfx("sprites/7", 27, 16, 16);
-	NF_VramSpriteGfx(0, 27, 27, false);
-	
-	NF_LoadSpriteGfx("sprites/8", 28, 16, 16);
-	NF_VramSpriteGfx(0, 28, 28, false);
-	
-	NF_LoadSpriteGfx("sprites/9", 29, 16, 16);
-	NF_VramSpriteGfx(0, 29, 29, false);
-
 	NF_LoadSpriteGfx("sprites/A button", 3, 16, 16); //Used to tell the player he can press A to continue. This can be useless if you're a big Nintendo gamer, BUT I am showing this project to non-gamers, so I need to make it intuitive.
 	NF_LoadSpritePal("sprites/A button", 3);	//Bro is telling his life LOL
 	NF_VramSpriteGfx(1, 3, 3, false);
@@ -105,11 +97,6 @@ void LoadSprites() {
 	NF_LoadSpritePal("sprites/Goat", 4);
 	NF_VramSpriteGfx(1, 4, 4, false);
 	NF_VramSpritePal(1, 4, 4);
-
-	NF_LoadSpriteGfx("sprites/Arrowbeta", 5, 64, 32);	//Why "beta"? i don't know. I should rename all my sprites and backgrounds.
-	NF_LoadSpritePal("sprites/Arrowbeta", 5);	//Used in Titlescreen
-	NF_VramSpriteGfx(1, 5, 5, false);
-	NF_VramSpritePal(1, 5, 5);
 
 	NF_LoadSpriteGfx("sprites/Arrowbeta_vertical", 6, 16, 32); //Like the arrowbeta but smaller and vertical. Used in door selection.
 	NF_LoadSpritePal("sprites/Arrowbeta_vertical", 6);
@@ -131,7 +118,7 @@ void LoadSprites() {
 	NF_VramSpriteGfx(1, 9, 9, false);
 	NF_VramSpritePal(1, 9, 9);
 
-	NF_LoadSpriteGfx("sprites/UsedDoorTop", 10, 64, 64);	//Red Highlight on chosen door, bottom part
+	NF_LoadSpriteGfx("sprites/UsedDoorTop", 10, 64, 64);	//Red Highlight on chosen door, top part
 	NF_LoadSpritePal("sprites/UsedDoorTop", 10);
 	NF_VramSpriteGfx(1, 10, 10, false);
 	NF_VramSpritePal(1, 10, 10);
@@ -140,6 +127,14 @@ void LoadSprites() {
 	NF_LoadSpritePal("sprites/UsedDoorBottom", 11);
 	NF_VramSpriteGfx(1, 11, 11, false);
 	NF_VramSpritePal(1, 11, 11);
+
+	NF_LoadSpriteGfx("sprites/TS_sheet", 12, 64, 64);	//Yellow highlight on titlescreen
+	NF_VramSpriteGfx(1, 12, 12, true);
+	NF_VramSpriteGfx(1, 12, 13, true);
+
+	NF_LoadSpritePal("sprites/TS_sheet", 12); //Its palette
+	NF_VramSpritePal(1, 12, 12);
+
 }
 
 
@@ -187,7 +182,7 @@ void RumbleStart() {
 	CheckRumble();
 	
 	if(rumble == true){
-		setRumble(100);
+		setRumble(intensity);
 		
 	}	
 	
@@ -265,13 +260,16 @@ int main(){
 
 	LoadSprites();
 
-	soundEnable();
+
 
 	while (quit == 0){
 
 		
 		soundDisable();
-		soundEnable();
+		
+		if (volume == 1) {
+			soundEnable();
+		}
 
 
 		NF_LoadTiledBg("bg/Top/Title", "Title_T", 256, 256);
@@ -279,12 +277,14 @@ int main(){
 		NF_CreateTiledBg(0, 3, "Title_T");
 		NF_CreateTiledBg(1, 3, "Title_B");
 		
-		option = 0;
-		arrowposx = 15;
-		arrowposy = 48;
+		option = 1;
 		game = 0;
+		blink = 0;
 		
-		NF_CreateSprite(1, 5, 5, 5, 15, 48);
+		NF_CreateSprite(1, 12, 12, 12, 63, 43);
+		NF_SpriteFrame(1, 12, 2);
+		NF_CreateSprite(1, 13, 13, 12, 127, 43);
+		NF_SpriteFrame(1, 13, 3);
 
 		while(game == 0)
 		{
@@ -307,7 +307,8 @@ int main(){
 			swiWaitForVBlank();
 		}
 		
-		NF_DeleteSprite(1, 5);
+		NF_DeleteSprite(1, 12);
+		NF_DeleteSprite(1, 13);
 
 		NF_LoadTiledBg("bg/Top/Blurred", "Blurred_T", 256, 256);
 		NF_CreateTiledBg(0, 2, "Blurred_T");
@@ -337,11 +338,11 @@ int main(){
 		
 		UnloadSFX();
 		
-		if (option == 0) {
+		if (option == 1) {
 			PlayMontyHall();
 			option = 0; //Set this to avoid game playing simulation without asking
 		}
-		if (option == 1) {
+		if (option == 2) {
 			SimulateMontyHall();
 		}
 				

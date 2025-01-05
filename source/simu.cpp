@@ -278,37 +278,28 @@ void MontyHallSimuFast() {
 
 void MontyHallSimuResults() {
 
-	int NumbersX[] = {105, 120, 135, 175, 190, 205, 105, 120, 135, 175, 190, 205};
-	int NumbersY[] = {96, 96, 96, 96, 96, 96, 128, 128, 128, 128, 128, 128};
 	int Variables[] = {StayWins, StayLoses, ChangeWins, ChangeLoses};
 
+	int units, dozens, hundreds;
 	option = 1;
-	int number;
-
-	for (int wait=0; wait<=11; wait++) {
-		NF_DeleteSprite(0, option);	//Deletes the number to replace it by the new one. I don't know how to do sprite frames, so I did like that.
-		option += 1;
-	}
 
 	//Determines numbers shown by the sprites
-	option = 0;
-
+	
 	for (int sprite=0; sprite<=3; sprite++) {
 		
-		number = (Variables[sprite] - (Variables[sprite] % 100)) / 100 + 20;	//Hundreds
-		NF_CreateSprite(0, option + 1, number, 2, NumbersX[option], NumbersY[option]);
-		option +=1;
+		units = Variables[sprite] % 10;
+		hundreds = (Variables[sprite] - Variables[sprite] % 100) / 100;
+		dozens = ((Variables[sprite] - units) / 10) % 10;
 		
-		number = ((Variables[sprite] % 100) - (Variables[sprite] % 10)) / 10 + 20;	//Dozens
-		NF_CreateSprite(0, option + 1, number, 2, NumbersX[option], NumbersY[option]);
-		option +=1;
 		
-		number = (Variables[sprite] % 10) + 20;	//Units
-		NF_CreateSprite(0, option + 1, number, 2, NumbersX[option], NumbersY[option]);
-		option +=1;
-		
+		NF_SpriteFrame(0, option, hundreds);
+		option += 1;
+		NF_SpriteFrame(0, option, dozens);
+		option += 1;
+		NF_SpriteFrame(0, option, units);
+		option += 1;
+	
 	}
-
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);
@@ -343,7 +334,7 @@ void SimulateMontyHall(){
 	
 	for (int sprite=1; sprite<=12; sprite++) {
 	
-		NF_CreateSprite(0, sprite, 20, 2, NumbersX[sprite - 1], NumbersY[sprite - 1]);	//Initiates sprites for the first time.
+		NF_CreateSprite(0, sprite, sprite, 2, NumbersX[sprite - 1], NumbersY[sprite - 1]);	//Initiates sprites for the first time.
 
 	}
 	

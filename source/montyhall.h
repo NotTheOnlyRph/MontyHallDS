@@ -2,12 +2,12 @@
 #ifndef MONTYHALL_H
 #define MONTYHALL_H
 
-// Déclaration de la fonction
+// Functions
 void UnloadSFX();
 void RumbleStart();
 void RumbleEnd();
 
-//Et des variables
+//And variables
 
 extern int select_hold;
 extern int arrowposx;	//Defines position for arrow (on menus) 
@@ -15,6 +15,8 @@ extern int arrowposy;	//Same
 extern int option;	//Used in many ways, like choosed option or sprite number calculator
 extern int game;	//Determines if exiting of the selecting loop (ex: titlescreen)
 extern int quit;	//If you quit the game
+
+extern int blink;
 
 extern int CarDoor;	//Door where the car is
 extern int ChosenDoor;	//Door chosen by the player/computer
@@ -28,6 +30,8 @@ extern int StayWins;	//Speaks by itself
 extern int StayLoses;	//Same
 extern int ChangeWins;	//I should put something random here instead of saying it speaks by itself too
 extern int ChangeLoses;	//How are you?
+
+extern int volume;
 
 extern int strategy;	//Change or stay on choice
 
