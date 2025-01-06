@@ -67,22 +67,12 @@ touchPosition Stylus;
 
 void LoadSprites() {
 	
-	NF_LoadSpriteGfx("sprites/numbers/1", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/2", 21, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/3", 22, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/4", 23, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/5", 24, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/6", 25, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/7", 26, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/8", 27, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/9", 28, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/10", 29, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/11", 30, 16, 16); //Numbers are showing when you simulate 2000 games.
-	NF_LoadSpriteGfx("sprites/numbers/12", 31, 16, 16); //Numbers are showing when you simulate 2000 games.
+	NF_LoadSpriteGfx("sprites/numbers/Numbers", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
+
 
 	for (int sprite=1; sprite<=12; sprite++){
 
-		NF_VramSpriteGfx(0, sprite+19, sprite, true);
+		NF_VramSpriteGfx(0, 20, sprite, true);
 	}
 	
 	NF_LoadSpritePal("sprites/numbers/Numbers", 2); //Numbers is the common palette for the numbers's graphics
@@ -359,7 +349,9 @@ int main(){
 	
 	NF_DeleteTiledBg(0, 3);
 	NF_DeleteTiledBg(1, 3);
-	NF_DeleteSprite(1, 5);
+	//NF_DeleteSprite(1, 5);
+	NF_DeleteSprite(1, 12);
+	NF_DeleteSprite(1, 13);
 
 	NF_SpriteOamSet(0);
 	NF_SpriteOamSet(1);

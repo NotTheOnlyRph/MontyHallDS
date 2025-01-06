@@ -93,7 +93,7 @@ void Title(){
 		select_hold = 0;
 	}
 		
-	if (select_hold >= 10800){ //If SELECT is held more than 3 seconds (120 = 2 frames, 3 secs = 180 frames)
+	if (select_hold >= 180){ //If SELECT is held more than 3 seconds (1 sec = 60 frames)
 		
 		game = 1;	//Ends titlescreen
 		quit = 1;	//Quits game
