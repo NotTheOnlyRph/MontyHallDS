@@ -43,7 +43,7 @@ int StayLoses;	//Same
 int ChangeWins;	//I should put something random here instead of saying it speaks by itself too
 int ChangeLoses;	//How are you?
 
-int volume = 1;
+int volume = 1; //1 is on, 0 is off
 
 int strategy;	//Change or stay on choice
 
@@ -67,6 +67,9 @@ touchPosition Stylus;
 
 void LoadSprites() {
 	
+	
+	//Top screen
+	
 	NF_LoadSpriteGfx("sprites/numbers/Numbers", 20, 16, 16); //Numbers are showing when you simulate 2000 games.
 
 
@@ -78,6 +81,11 @@ void LoadSprites() {
 	NF_LoadSpritePal("sprites/numbers/Numbers", 2); //Numbers is the common palette for the numbers's graphics
 	NF_VramSpritePal(0, 2, 2);
 	
+	
+	//Bottom screen
+	
+	
+	
 	NF_LoadSpriteGfx("sprites/A button", 3, 16, 16); //Used to tell the player he can press A to continue. This can be useless if you're a big Nintendo gamer, BUT I am showing this project to non-gamers, so I need to make it intuitive.
 	NF_LoadSpritePal("sprites/A button", 3);	//Bro is telling his life LOL
 	NF_VramSpriteGfx(1, 3, 3, false);
@@ -87,6 +95,11 @@ void LoadSprites() {
 	NF_LoadSpritePal("sprites/Goat", 4);
 	NF_VramSpriteGfx(1, 4, 4, false);
 	NF_VramSpritePal(1, 4, 4);
+
+	NF_LoadSpriteGfx("sprites/TS_sheet", 5, 16, 16);
+	NF_LoadSpritePal("sprites/TS_sheet", 5);
+	NF_VramSpriteGfx(1, 5, 5, true);
+	NF_VramSpritePal(1, 5, 5);
 
 	NF_LoadSpriteGfx("sprites/Arrowbeta_vertical", 6, 16, 32); //Like the arrowbeta but smaller and vertical. Used in door selection.
 	NF_LoadSpritePal("sprites/Arrowbeta_vertical", 6);
@@ -275,6 +288,9 @@ int main(){
 		NF_SpriteFrame(1, 12, 2);
 		NF_CreateSprite(1, 13, 13, 12, 127, 43);
 		NF_SpriteFrame(1, 13, 3);
+		
+		NF_CreateSprite(1, 5, 5, 5, 220, 12);
+		NF_SpriteFrame(1, 5, volume);
 
 		while(game == 0)
 		{

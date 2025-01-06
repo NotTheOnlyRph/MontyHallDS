@@ -5,7 +5,7 @@ GRIT=/opt/blocksds/core/tools/grit/grit
 # Edit here your sprite files
 
 #$GRIT TS_sheet.png -ftB -fh! -gTFF00FF -gt -gB8 -m!
-$GRIT Numbers.png -ftB -fh! -gTFF00FF -gt -gB8 -m!
+$GRIT Sound_icons.png -ftB -fh! -gTFF00FF -gt -gB8 -m!
 
 # Edit here your BG files
 

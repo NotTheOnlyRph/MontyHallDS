@@ -149,6 +149,8 @@ void Title(){
 
 	}
 	
+	NF_SpriteFrame(1, 5, volume);
+	
 	blink += 1;
 
 	if (blink > 15) {
