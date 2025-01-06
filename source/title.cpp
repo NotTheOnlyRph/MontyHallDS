@@ -103,27 +103,38 @@ void Title(){
 
 	if(KEY_TOUCH & keysDown()) {
 
-		//PLay button size: 128, 46 / Button pos: 80, 41
-		if(Stylus.px >= 80 && Stylus.px <= 208 && Stylus.py >= 41 && Stylus.py <= 87){
+		//PLay button size: 130, 49 / Button pos: 63, 43
+		if(Stylus.px >= 63 && Stylus.px <= 193 && Stylus.py >= 43 && Stylus.py <= 92){
 
 			option = 1;
 			game = 1;
 			mmLoadEffect(SFX_CONFIRM);
 			mmEffect(SFX_CONFIRM);
 			blink = 0;
-
 		}
-		//Simulate button pos: 80, 105
-		if(Stylus.px >= 80 && Stylus.px <= 208 && Stylus.py >= 105 && Stylus.py <= 151){
+		//Simulate button pos: 63, 103
+		if(Stylus.px >= 63 && Stylus.px <= 193 && Stylus.py >= 103 && Stylus.py <= 152){
 
 			option = 2;
 			game = 1;
 			mmLoadEffect(SFX_CONFIRM);
 			mmEffect(SFX_CONFIRM);
 			blink = 0;
-
 		}
-
+		//Volume button size: 29, 29 / Volume button pos: 215, 6
+		if(Stylus.px >= 215 && Stylus.px <= 244 && Stylus.py >= 6 && Stylus.py <= 35){
+	
+			if (volume == 1) {
+				volume = 0;
+				soundDisable();
+			}
+			else {
+				volume = 1;
+				soundEnable();
+				mmLoadEffect(SFX_SELECT);
+				mmEffect(SFX_SELECT);
+			}
+		}
 	}
 
 	if (select_hold >= 1) {

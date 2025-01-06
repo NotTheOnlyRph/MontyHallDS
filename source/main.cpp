@@ -78,12 +78,16 @@ void LoadSprites() {
 		NF_VramSpriteGfx(0, 20, sprite, true);
 	}
 	
-	NF_LoadSpritePal("sprites/numbers/Numbers", 2); //Numbers is the common palette for the numbers's graphics
-	NF_VramSpritePal(0, 2, 2);
+	NF_LoadSpritePal("sprites/numbers/Numbers", 20); //Numbers is the common palette for the numbers's graphics
+	NF_VramSpritePal(0, 20, 2);
 	
 	
 	//Bottom screen
 	
+	NF_LoadSpriteGfx("sprites/Car", 2, 32, 32); //Car on correct door
+	NF_LoadSpritePal("sprites/Car", 2);
+	NF_VramSpriteGfx(1, 2, 2, false);
+	NF_VramSpritePal(1, 2, 2);
 	
 	
 	NF_LoadSpriteGfx("sprites/A button", 3, 16, 16); //Used to tell the player he can press A to continue. This can be useless if you're a big Nintendo gamer, BUT I am showing this project to non-gamers, so I need to make it intuitive.
@@ -96,8 +100,8 @@ void LoadSprites() {
 	NF_VramSpriteGfx(1, 4, 4, false);
 	NF_VramSpritePal(1, 4, 4);
 
-	NF_LoadSpriteGfx("sprites/TS_sheet", 5, 16, 16);
-	NF_LoadSpritePal("sprites/TS_sheet", 5);
+	NF_LoadSpriteGfx("sprites/Sound_icons", 5, 32, 32);
+	NF_LoadSpritePal("sprites/Sound_icons", 5);
 	NF_VramSpriteGfx(1, 5, 5, true);
 	NF_VramSpritePal(1, 5, 5);
 
@@ -289,7 +293,7 @@ int main(){
 		NF_CreateSprite(1, 13, 13, 12, 127, 43);
 		NF_SpriteFrame(1, 13, 3);
 		
-		NF_CreateSprite(1, 5, 5, 5, 220, 12);
+		NF_CreateSprite(1, 5, 5, 5, 221, 12);
 		NF_SpriteFrame(1, 5, volume);
 
 		while(game == 0)
@@ -313,6 +317,7 @@ int main(){
 			swiWaitForVBlank();
 		}
 		
+		NF_DeleteSprite(1, 5);
 		NF_DeleteSprite(1, 12);
 		NF_DeleteSprite(1, 13);
 

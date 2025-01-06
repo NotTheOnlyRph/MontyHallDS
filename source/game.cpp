@@ -352,10 +352,13 @@ void PlayMontyHall(){
 	}
 	
 	if (ChosenDoor == CarDoor) {
-		NF_CreateSprite(1, 3, 10, 10, Doorx[ChosenDoor] + 16, 96);
+		NF_CreateSprite(1, 3, 2, 2, Doorx[ChosenDoor] + 16, 96);
+		option = 0; //Set option to 0 to remember win
+
 	}
 	else{
 		NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
+		option = 1; //Set option to 1 to remember lose
 	}
 	
 	RumbleEnd();
@@ -389,14 +392,13 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);	
 
-	if (ChosenDoor == CarDoor) {
+	if (option == 0) { //I told you to remember!
 		NF_LoadTiledBg("bg/Win", "Win", 256, 256);
 		NF_CreateTiledBg(1, 0, "Win");
 		
 		mmLoad(MOD_GAME_WIN);
 		mmStart(MOD_GAME_WIN, MM_PLAY_ONCE);
 		
-		option = 0; //Set option to 0 to remember win
 	}
 	else {
 		NF_LoadTiledBg("bg/Lose", "Lose", 256, 256);
@@ -404,8 +406,6 @@ void PlayMontyHall(){
 		
 		mmLoad(MOD_GAME_LOSE);
 		mmStart(MOD_GAME_LOSE, MM_PLAY_ONCE);
-		
-		option = 1; //Set option to 1 to remember lose
 	}
 
 	int JingleWaitTime[] = {240, 180};
