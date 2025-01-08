@@ -137,15 +137,14 @@ void Title(){
 	
 	if (KEY_START & keysHeld()) {
 		start_hold += 1;
-		blink = 0;
 	}
 	else {
 		start_hold = 0;
 	}
-	if (start_hold >= 720){ //If START is held more than 12 seconds (1 sec = 60 frames)
+		
+	if (start_hold >= 250){ //If START is held more than 3 seconds (1 sec = 60 frames)
 		
 		ToggleCheatMode();
-		
 	}
 	
 
@@ -192,7 +191,7 @@ void Title(){
 		NF_SpriteFrame(1, 12, 6);
 		NF_MoveSprite(1, 12, 38, 167);
 		NF_SpriteFrame(1, 13, 7); // No need to move this sprite since it is empty
-		
+
 	}
 	else {
 
