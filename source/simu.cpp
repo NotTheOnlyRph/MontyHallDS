@@ -60,9 +60,7 @@ void MontyHallSimuPgrm(int speed) {
 	mmLoadEffect(SFX_SELECT);
 	mmEffect(SFX_SELECT);
 	
-	for (int wait=0; wait<=speed; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(speed);
 	
 	
 	NF_CreateSprite(1, 9, 9, 9, Doorx[ChosenDoor] - 24, 48); // -24 because Doorx[ChosenDoor] is too much on the right
@@ -94,9 +92,7 @@ void MontyHallSimuPgrm(int speed) {
 	mmLoadEffect(SFX_MOVE);
 	mmEffect(SFX_MOVE);
 
-	for (int wait=0; wait<=speed; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(speed);
 
 	
 	NF_LoadTiledBg("bg/Bottom/Game_change_select", "Change_B", 256, 256);
@@ -113,9 +109,7 @@ void MontyHallSimuPgrm(int speed) {
 	mmLoadEffect(SFX_MOVE);
 	mmEffect(SFX_MOVE);
 
-	for (int wait=0; wait<=speed; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(speed);
 	
 	NF_DeleteSprite(1, 7);
 
@@ -128,11 +122,6 @@ void MontyHallSimuPgrm(int speed) {
 		}
 	}
 
-	if (ChosenDoor == ChosenDoorCopy) {
-		do {
-			ChosenDoorCopy = rand() % 3;
-		} while ((ChosenDoorCopy == ChosenDoor) || (ChosenDoorCopy == WrongDoor));
-	}
 
 	NF_DeleteSprite(1, 10);
 	NF_DeleteSprite(1, 11);
@@ -171,9 +160,7 @@ void MontyHallSimuPgrm(int speed) {
 	oamUpdate(&oamSub);
 	
 	
-	for (int wait=0; wait<=speed; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(speed);
 	
 	NF_DeleteTiledBg(1, 0);
 	
@@ -333,9 +320,8 @@ void SimulateMontyHall(){
 	int NumbersY[] = {96, 96, 96, 96, 96, 96, 128, 128, 128, 128, 128, 128};	
 	
 	for (int sprite=1; sprite<=12; sprite++) {
-	
+		
 		NF_CreateSprite(0, sprite, sprite, 2, NumbersX[sprite - 1], NumbersY[sprite - 1]);	//Initiates sprites for the first time.
-
 	}
 	
 	ChangeStrategy = 1000;
@@ -424,9 +410,7 @@ void SimulateMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 	
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 	
 	NF_CreateSprite(1, 3, 3, 3, 235, 171);
 
@@ -483,7 +467,5 @@ void SimulateMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 	
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 }

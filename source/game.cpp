@@ -208,9 +208,7 @@ void PlayMontyHall(){
 
 	CarDoor = rand() % 3;	//Door where the car is
 	
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();	//Waits for the next instruction. The DS is running at 60fps so waiting 60 times = wait 1 second 
-	}
+	Wait(60);
 
 	NF_LoadTiledBg("bg/Top/Game_choose_door", "Choose_T", 256, 256);
 	NF_CreateTiledBg(0, 1, "Choose_T");
@@ -250,9 +248,7 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 		
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 
 	do {
 		WrongDoor = rand() % 3;	//Choses the wrong door, diferent from the car and chosen door. It picks a random door because of the case where the car door is the chosen door (there are in this case 2 posibilities, 1 the rest of the time)
@@ -269,9 +265,7 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 
 	NF_LoadTiledBg("bg/Bottom/Game_change_select", "Change_B", 256, 256);
 	NF_CreateTiledBg(1, 0, "Change_B");
@@ -323,16 +317,8 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 
-	if (ChosenDoor == ChosenDoorCopy) {	//If the player hasn't changed his choice
-		do {
-			ChosenDoorCopy = rand() % 3;	//Determines the door to delete
-		} while ((ChosenDoorCopy == ChosenDoor) || (ChosenDoorCopy == WrongDoor));
-	}
-	
 	NF_CreateSprite(1, 14, 10, 10, Doorx[ChosenDoor], 48); //Creates the final door over the background
 	NF_CreateSprite(1, 15, 11, 11, Doorx[ChosenDoor], 112);
 	
@@ -347,19 +333,36 @@ void PlayMontyHall(){
 	mmLoadEffect(SFX_DRUMROLL);
 	mmEffect(SFX_DRUMROLL);
 	
-	for (int wait=0; wait<=150; wait++) {
-		swiWaitForVBlank();
+	Wait(150);
+	
+	//Time to check if you guessed correctly!
+	
+	if (cheat == 0) { //Unless you cheated
+		
+		if (ChosenDoor == CarDoor) {
+			NF_CreateSprite(1, 3, 2, 2, Doorx[ChosenDoor] + 16, 96);
+			option = 0; //Set option to 0 to remember win
+
+		}
+		else{
+			NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
+			option = 1; //Set option to 1 to remember lose
+		}
+	}
+	else { //Cheaters time!
+		
+		if (cheat == 1) {
+			NF_CreateSprite(1, 3, 2, 2, Doorx[ChosenDoor] + 16, 96);
+			option = 0; //Set option to 0 to remember win
+
+		}
+		if (cheat == 2) {
+			NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
+			option = 1; //Set option to 1 to remember lose
+		}
+	
 	}
 	
-	if (ChosenDoor == CarDoor) {
-		NF_CreateSprite(1, 3, 2, 2, Doorx[ChosenDoor] + 16, 96);
-		option = 0; //Set option to 0 to remember win
-
-	}
-	else{
-		NF_CreateSprite(1, 3, 4, 4, Doorx[ChosenDoor] + 16, 96);
-		option = 1; //Set option to 1 to remember lose
-	}
 	
 	RumbleEnd();
 	
@@ -369,9 +372,7 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);	
 
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 
 	mmUnloadEffect(SFX_DRUMROLL);
 
@@ -416,9 +417,9 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 
-	for (int wait=0; wait<=JingleWaitTime[option]; wait++) {
-			swiWaitForVBlank();
-		}
+	for (int wait=0; wait<=JingleWaitTime[option]; wait++) { //Waits for the end of the jingle, who has a different length for win and lose
+		swiWaitForVBlank();
+	}
 	
 	NF_CreateSprite(1, 3, 3, 3, 235, 171);	//A button
 	
@@ -479,7 +480,5 @@ void PlayMontyHall(){
 	oamUpdate(&oamMain);
 	oamUpdate(&oamSub);
 	
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 }

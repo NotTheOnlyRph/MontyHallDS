@@ -21,7 +21,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-int select_hold;
+int start_hold = 0;
+int select_hold = 0;
+int cheat = 0;
+
 int arrowposx;	//Defines position for arrow (on menus) 
 int arrowposy;	//Same
 int option;	//Used in many ways, like choosed option or sprite number calculator
@@ -142,6 +145,26 @@ void LoadSprites() {
 	NF_LoadSpritePal("sprites/TS_sheet", 12); //Its palette
 	NF_VramSpritePal(1, 12, 12);
 
+}
+
+/*
+-------------------------------------------------
+
+	Wait function
+
+	Used to simplify the wait code instead of putting it everywhere.
+	Note: The DS runs at 60fps
+
+	Used by: nearly all codes
+
+-------------------------------------------------
+*/
+
+void Wait(int frames){
+
+	for(int wait = 0; wait < frames; wait++){
+			swiWaitForVBlank();		
+	}
 }
 
 
@@ -313,9 +336,7 @@ int main(){
 
 		SmallRumble();
 		
-		for (int wait=0; wait<=60; wait++) {
-			swiWaitForVBlank();
-		}
+		Wait(60);
 		
 		NF_DeleteSprite(1, 5);
 		NF_DeleteSprite(1, 12);
@@ -343,9 +364,7 @@ int main(){
 		oamUpdate(&oamMain);
 		oamUpdate(&oamSub);
 
-		for (int wait=0; wait<=30; wait++) {
-			swiWaitForVBlank();
-		}
+		Wait(30);
 		
 		UnloadSFX();
 		
@@ -381,9 +400,7 @@ int main(){
 	oamUpdate(&oamSub);
 
 	
-	for (int wait=0; wait<=60; wait++) {
-		swiWaitForVBlank();
-	}
+	Wait(60);
 	
 	UnloadSFX();
 	

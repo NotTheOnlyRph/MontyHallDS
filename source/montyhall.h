@@ -3,6 +3,7 @@
 #define MONTYHALL_H
 
 // Functions
+void Wait(int frames);
 void UnloadSFX();
 void RumbleStart();
 void RumbleEnd();
@@ -10,6 +11,9 @@ void RumbleEnd();
 //And variables
 
 extern int select_hold;
+extern int start_hold;
+extern int cheat;
+
 extern int arrowposx;	//Defines position for arrow (on menus) 
 extern int arrowposy;	//Same
 extern int option;	//Used in many ways, like choosed option or sprite number calculator

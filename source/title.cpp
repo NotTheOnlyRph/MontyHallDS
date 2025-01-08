@@ -25,6 +25,41 @@
 /*
 -------------------------------------------------
 
+	ToggleCheatMode() Function
+
+	Determines the cheat mode and the jingle to play
+
+	Used by: Titlescreen()
+
+-------------------------------------------------
+*/
+
+void ToggleCheatMode(){
+	
+	cheat = cheat + 1 % 3;
+	start_hold = 0;
+
+	if (cheat == 0) {
+		mmLoadEffect(SFX_CANCEL);
+		mmEffect(SFX_CANCEL);
+	}	
+	
+	if (cheat == 1) {
+		mmLoadEffect(SFX_SIMU_WIN);
+		mmEffect(SFX_SIMU_WIN);
+	}
+	
+	if (cheat == 2) {
+		mmLoadEffect(SFX_SIMU_LOSE);
+		mmEffect(SFX_SIMU_LOSE);
+	}
+
+}
+
+
+/*
+-------------------------------------------------
+
 	Titlescreen() Function
 
 	Program part for titlescreen option selection
@@ -98,6 +133,21 @@ void Title(){
 		game = 1;	//Ends titlescreen
 		quit = 1;	//Quits game
 	}
+	
+	
+	if (KEY_START & keysHeld()) {
+		start_hold += 1;
+		blink = 0;
+	}
+	else {
+		start_hold = 0;
+	}
+	if (start_hold >= 720){ //If START is held more than 12 seconds (1 sec = 60 frames)
+		
+		ToggleCheatMode();
+		
+	}
+	
 
 	touchRead(&Stylus);
 
