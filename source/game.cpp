@@ -463,7 +463,7 @@ void PlayMontyHall(){
 	NF_DeleteTiledBg(1, 0);
 	NF_DeleteTiledBg(1, 1);
 	
-	if (ChosenDoor == CarDoor) {
+	if (option == 0) {
 		
 		mmUnload(MOD_GAME_WIN);
 		NF_UnloadTiledBg("Win");
